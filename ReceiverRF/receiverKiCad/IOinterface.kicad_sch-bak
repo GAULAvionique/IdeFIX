@@ -2418,15 +2418,6 @@
 				)
 			)
 		)
-		(property "Digikey" "541-TNPW120650R0BEENCT-ND"
-			(at 52.07 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "2679e152-a922-4e8c-9b71-a0b25a03cdc4")
 		)
@@ -2553,15 +2544,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 49.53 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digikey" "160-1179-1-ND"
 			(at 49.53 128.27 0)
 			(effects
 				(font
@@ -2774,15 +2756,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "668-SMTB-0927-TW-RCT-ND"
-			(at 54.61 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "9821baeb-cea9-4dc5-bf26-61b52e379ca5")
 		)
@@ -2919,15 +2892,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2019-RN73H2BTTD1450F100CT-ND"
-			(at 38.1 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "8680917d-99fa-4f8c-a25e-fad80d894d00")
 		)
@@ -3055,15 +3019,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 83.82 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digikey" ""
 			(at 83.82 86.36 0)
 			(effects
 				(font
@@ -3236,15 +3191,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "MMBT3904LT1GOSCT-ND"
-			(at 49.53 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "3"
 			(uuid "fd3ef830-75b9-4d50-aefc-7737f4cf2fe6")
 		)
@@ -3309,15 +3255,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 107.95 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digikey" ""
 			(at 107.95 50.8 0)
 			(effects
 				(font
@@ -3395,15 +3332,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "P1.5KDCCT-ND"
-			(at 39.37 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "c8531d75-2d2e-4c43-93cc-1275f4b52278")
 		)
@@ -3465,15 +3393,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 107.95 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digikey" "311-10KJRCT-ND"
 			(at 107.95 39.37 0)
 			(effects
 				(font
@@ -3750,15 +3669,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "311-10KJRCT-ND"
-			(at 107.95 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "a6bc5a0d-b312-4baf-bdb9-0bc3f0061c88")
 		)
@@ -3895,15 +3805,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2019-RN73H2BTTD1450F100CT-ND"
-			(at 49.53 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "84677cb0-2a5b-426c-a819-24acadc372aa")
 		)
@@ -3939,7 +3840,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "RK09K1130A5R"
+		(property "Value" "10k"
 			(at 54.61 48.2599 0)
 			(effects
 				(font
@@ -3967,15 +3868,6 @@
 			)
 		)
 		(property "Description" "RK09K1130A5R"
-			(at 52.07 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digikey" ""
 			(at 52.07 46.99 0)
 			(effects
 				(font
@@ -4055,15 +3947,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "160-1179-1-ND"
-			(at 38.1 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "0345c069-b486-4673-b77e-3039657be8d7")
 		)
@@ -4125,15 +4008,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 46.99 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digikey" "BAT54T1GOSCT-ND"
 			(at 46.99 62.23 0)
 			(effects
 				(font
@@ -4211,15 +4085,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" ""
-			(at 83.82 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "77509927-d4f7-48b5-b892-5006164eafa3")
 		)
@@ -4289,15 +4154,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" ""
-			(at 107.95 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "cb4b436e-1707-4ab2-848b-1aad68ee2be8")
 		)
@@ -4358,15 +4214,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 26.67 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digikey" "160-1179-1-ND"
 			(at 26.67 128.27 0)
 			(effects
 				(font
@@ -4511,15 +4358,6 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2019-RN73H2BTTD1450F100CT-ND"
-			(at 26.67 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "907ea7d4-fb7b-4d90-8d98-73be8426e886")
 		)
@@ -4581,15 +4419,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 83.82 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digikey" "311-10KJRCT-ND"
 			(at 83.82 39.37 0)
 			(effects
 				(font

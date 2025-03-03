@@ -3204,6 +3204,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "311-10KJRCT-ND"
+			(at 99.06 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "699e0322-27dd-4937-b9f3-43a4c693c759")
 		)
@@ -3634,7 +3643,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0"
+		(property "Value" "jumper"
 			(at 113.03 59.69 90)
 			(effects
 				(font
@@ -3663,6 +3672,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 110.49 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" ""
 			(at 110.49 58.42 0)
 			(effects
 				(font
@@ -3741,6 +3759,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "311-10KJRCT-ND"
+			(at 110.49 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "f3f6091f-44c9-423a-8525-92b71712e6d2")
 		)
@@ -3774,7 +3801,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 105.41 36.83 0)
 			(effects
 				(font
@@ -3802,6 +3829,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 102.87 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
 			(at 102.87 35.56 0)
 			(effects
 				(font
@@ -4006,6 +4042,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 44.45 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "MLX90393SLW-ABA-011-RECT-ND"
 			(at 44.45 52.07 0)
 			(effects
 				(font
@@ -4225,7 +4270,7 @@
 				)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "BAT54T1G"
 			(at 44.45 106.68 0)
 			(effects
 				(font
@@ -4253,6 +4298,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 54.61 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "BAT54T1GOSCT-ND"
 			(at 54.61 107.95 0)
 			(effects
 				(font
@@ -4403,7 +4457,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 49.53 36.83 0)
 			(effects
 				(font
@@ -4431,6 +4485,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 46.99 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
 			(at 46.99 35.56 0)
 			(effects
 				(font
@@ -4472,7 +4535,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "1uF"
 			(at 87.63 36.83 0)
 			(effects
 				(font
@@ -4500,6 +4563,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 85.09 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  2679-AGC0603X7R250-105KXPTR-ND"
 			(at 85.09 35.56 0)
 			(effects
 				(font
@@ -4672,7 +4744,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0"
+		(property "Value" "jumper"
 			(at 101.6 59.69 90)
 			(effects
 				(font
@@ -4701,6 +4773,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 99.06 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" ""
 			(at 99.06 58.42 0)
 			(effects
 				(font
@@ -4770,6 +4851,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 39.37 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" ""
 			(at 39.37 156.21 0)
 			(effects
 				(font
@@ -4950,7 +5040,7 @@
 				)
 			)
 		)
-		(property "Value" "Conn_Coaxial"
+		(property "Value" "RF2-03E-T-00-50-G"
 			(at 22.352 104.14 0)
 			(effects
 				(font
@@ -4977,6 +5067,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 25.4 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  2057-RF2-03E-T-00-50-G-ND"
 			(at 25.4 107.95 0)
 			(effects
 				(font

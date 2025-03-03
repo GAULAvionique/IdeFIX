@@ -3076,10 +3076,6 @@
 		(uuid "06871346-334c-44e8-95f7-62406e69ff19")
 	)
 	(no_connect
-		(at 171.45 92.71)
-		(uuid "104bc8e1-8f4f-45f3-89ea-1372acd28dbc")
-	)
-	(no_connect
 		(at 171.45 118.11)
 		(uuid "1137a949-90be-4b81-835a-1a37d0750597")
 	)
@@ -3122,6 +3118,10 @@
 	(no_connect
 		(at 171.45 57.15)
 		(uuid "86c285b0-fc4e-4528-9212-9595288cdd31")
+	)
+	(no_connect
+		(at 135.89 100.33)
+		(uuid "8a92fc85-b051-48ca-8d38-fecbbe89f493")
 	)
 	(no_connect
 		(at 135.89 97.79)
@@ -3170,16 +3170,6 @@
 	(no_connect
 		(at 171.45 107.95)
 		(uuid "f9b1100b-2eb6-4ad7-b9d8-29ef262cc892")
-	)
-	(wire
-		(pts
-			(xy 132.08 100.33) (xy 135.89 100.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "015929cb-5c15-4c6c-a178-04d996d3bc31")
 	)
 	(wire
 		(pts
@@ -3400,6 +3390,16 @@
 			(type default)
 		)
 		(uuid "4cd5455c-207b-4873-a595-06f1c8b0484a")
+	)
+	(wire
+		(pts
+			(xy 171.45 92.71) (xy 175.26 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4cffdba1-ea2d-40c0-9811-18023811d8e3")
 	)
 	(wire
 		(pts
@@ -4783,22 +4783,22 @@
 	)
 	(global_label "MLX_INT"
 		(shape input)
-		(at 132.08 100.33 180)
+		(at 175.26 92.71 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "bc3f6c12-fa3a-47ec-8da7-a11a77879b32")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 121.5353 100.33 0)
+			(at 185.8047 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -5115,6 +5115,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 153.67 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "497-6444-ND"
 			(at 153.67 97.79 0)
 			(effects
 				(font
@@ -5445,6 +5454,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "P1.5KDCCT-ND"
+			(at 240.03 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "95138b30-99f8-4426-88b9-dff0841909b5")
 		)
@@ -5545,7 +5563,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "16p"
+		(property "Value" "16pF"
 			(at 250.19 135.89 0)
 			(effects
 				(font
@@ -5573,6 +5591,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 247.65 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "478-11769-1-ND"
 			(at 247.65 134.62 0)
 			(effects
 				(font
@@ -5781,6 +5808,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "311-10KJRCT-ND"
+			(at 107.95 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "fbaa9df1-1f39-4650-8dd7-a1786fb4b2c6")
 		)
@@ -5814,7 +5850,7 @@
 				)
 			)
 		)
-		(property "Value" "120R"
+		(property "Value" "ILBB0603ER121V"
 			(at 188.0108 31.75 90)
 			(effects
 				(font
@@ -5841,6 +5877,15 @@
 			)
 		)
 		(property "Description" "120 ohm @ 100 MHz"
+			(at 187.96 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "541-2290-1-ND"
 			(at 187.96 36.83 0)
 			(effects
 				(font
@@ -6014,7 +6059,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10u"
+		(property "Value" "10uF"
 			(at 140.97 41.91 0)
 			(effects
 				(font
@@ -6042,6 +6087,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 138.43 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  2679-AGC1206X6S250-106KXETR-ND"
 			(at 138.43 40.64 0)
 			(effects
 				(font
@@ -6175,6 +6229,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 229.87 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" ""
 			(at 229.87 91.44 0)
 			(effects
 				(font
@@ -6383,6 +6446,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "311-10KJRCT-ND"
+			(at 232.41 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "cfa9cefc-fb15-431c-8602-8053923fc2c1")
 		)
@@ -6416,7 +6488,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 99.06 41.91 0)
 			(effects
 				(font
@@ -6444,6 +6516,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 96.52 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
 			(at 96.52 40.64 0)
 			(effects
 				(font
@@ -6485,7 +6566,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 109.22 41.91 0)
 			(effects
 				(font
@@ -6513,6 +6594,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 106.68 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
 			(at 106.68 40.64 0)
 			(effects
 				(font
@@ -6582,6 +6672,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 246.38 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "311-10KJRCT-ND"
 			(at 246.38 99.06 0)
 			(effects
 				(font
@@ -6690,7 +6789,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "16p"
+		(property "Value" "16pF"
 			(at 233.68 135.89 0)
 			(effects
 				(font
@@ -6718,6 +6817,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 231.14 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "478-11769-1-ND"
 			(at 231.14 134.62 0)
 			(effects
 				(font
@@ -6759,7 +6867,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "1uF"
 			(at 199.39 41.91 0)
 			(effects
 				(font
@@ -6787,6 +6895,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 196.85 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  2679-AGC0603X7R250-105KXPTR-ND"
 			(at 196.85 40.64 0)
 			(effects
 				(font
@@ -6828,7 +6945,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "1uF"
 			(at 179.07 41.91 0)
 			(effects
 				(font
@@ -6856,6 +6973,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 176.53 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  2679-AGC0603X7R250-105KXPTR-ND"
 			(at 176.53 40.64 0)
 			(effects
 				(font
@@ -6897,7 +7023,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 119.38 41.91 0)
 			(effects
 				(font
@@ -6925,6 +7051,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 116.84 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
 			(at 116.84 40.64 0)
 			(effects
 				(font
@@ -7131,6 +7266,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "P10.0LCT-ND"
+			(at 254 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9e4d13e9-7d77-4e92-ba73-dc936880275a")
 		)
@@ -7164,7 +7308,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10n"
+		(property "Value" "10nF"
 			(at 170.18 41.91 0)
 			(effects
 				(font
@@ -7192,6 +7336,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 167.64 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  2679-AGC0402X7R500-103KNPTR-ND"
 			(at 167.64 40.64 0)
 			(effects
 				(font
@@ -7337,6 +7490,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" ""
+			(at 246.38 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ed0d371d-e2a4-44c6-8f1a-2157f7676825")
 		)
@@ -7379,7 +7541,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 118.11 59.69 0)
 			(effects
 				(font
@@ -7407,6 +7569,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 115.57 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
 			(at 115.57 58.42 0)
 			(effects
 				(font
@@ -7448,7 +7619,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 88.9 41.91 0)
 			(effects
 				(font
@@ -7476,6 +7647,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 86.36 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
 			(at 86.36 40.64 0)
 			(effects
 				(font
@@ -7516,7 +7696,7 @@
 				)
 			)
 		)
-		(property "Value" "Crystal_GND24"
+		(property "Value" "YG8M000000S418"
 			(at 238.76 118.11 0)
 			(effects
 				(font
@@ -7533,7 +7713,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.digikey.ca/en/products/detail/nextgen-components/YG8M000000S418/17289334"
+		(property "Datasheet" "https://www.digikey.ca/en/products/detail/nextgen-components/YG8M000000S416/17289334"
 			(at 238.76 125.73 0)
 			(effects
 				(font
@@ -7542,7 +7722,16 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "YG8M000000S416"
+			(at 238.76 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  3372-YG8M000000S418TR-ND"
 			(at 238.76 125.73 0)
 			(effects
 				(font
@@ -7590,7 +7779,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 129.54 41.91 0)
 			(effects
 				(font
@@ -7618,6 +7807,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 127 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
 			(at 127 40.64 0)
 			(effects
 				(font
@@ -7687,6 +7885,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 242.57 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "311-10KJRCT-ND"
 			(at 242.57 59.69 0)
 			(effects
 				(font

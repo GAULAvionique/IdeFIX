@@ -2646,7 +2646,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "145"
+		(property "Value" "145R"
 			(at 78.74 73.66 0)
 			(effects
 				(font
@@ -2674,6 +2674,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 76.2 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2019-RN73H2BTTD1450F100CT-ND"
 			(at 76.2 72.39 0)
 			(effects
 				(font
@@ -2851,7 +2860,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "145"
+		(property "Value" "145R"
 			(at 219.71 96.52 0)
 			(effects
 				(font
@@ -2879,6 +2888,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 217.17 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2019-RN73H2BTTD1450F100CT-ND"
 			(at 217.17 95.25 0)
 			(effects
 				(font
@@ -2920,7 +2938,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "1uF"
 			(at 204.47 87.63 0)
 			(effects
 				(font
@@ -2948,6 +2966,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 201.93 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  2679-AGC0603X7R250-105KXPTR-ND"
 			(at 201.93 86.36 0)
 			(effects
 				(font
@@ -3123,7 +3150,7 @@
 				)
 			)
 		)
-		(property "Value" "145"
+		(property "Value" "145R"
 			(at 210.82 77.47 90)
 			(effects
 				(font
@@ -3150,6 +3177,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 210.82 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2019-RN73H2BTTD1450F100CT-ND"
 			(at 210.82 81.28 0)
 			(effects
 				(font
@@ -3426,6 +3462,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" ""
+			(at 53.34 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "48f6f1ee-3510-4349-b5fe-945fdedceac8")
 		)
@@ -3630,6 +3675,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "2129-NJM2882F05-TE1CT-ND"
+			(at 134.62 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0dfae1a7-c517-48a7-aaa4-c4ae348d8db9")
 		)
@@ -3805,7 +3859,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "4.7u"
+		(property "Value" "4.7uF"
 			(at 66.294 74.93 0)
 			(effects
 				(font
@@ -3833,6 +3887,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 63.5 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "4713-GMC10X7R475K10NTCT-ND"
 			(at 63.5 73.66 0)
 			(effects
 				(font
@@ -3940,7 +4003,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10n"
+		(property "Value" "10nF"
 			(at 193.04 97.79 0)
 			(effects
 				(font
@@ -3968,6 +4031,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 190.5 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  2679-AGC0402X7R500-103KNPTR-ND"
 			(at 190.5 96.52 0)
 			(effects
 				(font
@@ -4046,6 +4118,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" ""
+			(at 38.1 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a12689fa-79c2-4dc3-948a-a9fc519b0eec")
 		)
@@ -4080,7 +4161,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 124.46 95.25 0)
 			(effects
 				(font
@@ -4108,6 +4189,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 120.65 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
 			(at 120.65 93.98 0)
 			(effects
 				(font
@@ -4349,7 +4439,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "145"
+		(property "Value" "145R"
 			(at 219.71 87.63 0)
 			(effects
 				(font
@@ -4377,6 +4467,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 217.17 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "2019-RN73H2BTTD1450F100CT-ND"
 			(at 217.17 86.36 0)
 			(effects
 				(font
@@ -4419,7 +4518,7 @@
 				)
 			)
 		)
-		(property "Value" "Rouge"
+		(property "Value" "LTST-C190EKT"
 			(at 78.74 82.55 0)
 			(effects
 				(font
@@ -4446,6 +4545,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 76.2 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "160-1182-1-ND"
 			(at 76.2 81.28 0)
 			(effects
 				(font
@@ -4554,7 +4662,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10u"
+		(property "Value" "10uF"
 			(at 37.084 74.676 0)
 			(effects
 				(font
@@ -4582,6 +4690,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 34.29 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "  2679-AGC1206X6S250-106KXETR-ND"
 			(at 34.29 73.66 0)
 			(effects
 				(font
@@ -4861,6 +4978,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "NCV5501DT33RKGOSCT-ND "
+			(at 48.26 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "02dd7522-f76a-4ec8-8e3a-679862d03c5a")
 		)
@@ -4963,7 +5089,7 @@
 				)
 			)
 		)
-		(property "Value" "Rouge"
+		(property "Value" "LTST-C190EKT"
 			(at 219.71 104.14 0)
 			(effects
 				(font
@@ -4990,6 +5116,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 217.17 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "160-1182-1-ND"
 			(at 217.17 104.14 0)
 			(effects
 				(font
