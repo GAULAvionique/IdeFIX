@@ -7696,7 +7696,7 @@
 				)
 			)
 		)
-		(property "Value" "YG8M000000S418"
+		(property "Value" "CTX853CT-ND"
 			(at 238.76 118.11 0)
 			(effects
 				(font
@@ -7713,7 +7713,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.digikey.ca/en/products/detail/nextgen-components/YG8M000000S416/17289334"
+		(property "Datasheet" "https://www.digikey.ca/en/products/detail/cts-frequency-controls/406C35D08M00000/2292774"
 			(at 238.76 125.73 0)
 			(effects
 				(font
@@ -7722,7 +7722,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "YG8M000000S416"
+		(property "Description" "406C35D08M00000"
 			(at 238.76 125.73 0)
 			(effects
 				(font
@@ -7731,7 +7731,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "  3372-YG8M000000S418TR-ND"
+		(property "Digikey" "CTX853CT-ND"
 			(at 238.76 125.73 0)
 			(effects
 				(font
