@@ -3204,7 +3204,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "311-10KJRCT-ND"
+		(property "Digikey" "311-10.0KFRCT-ND"
 			(at 99.06 71.12 0)
 			(effects
 				(font
@@ -3632,7 +3632,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "559c506a-f08d-4b6b-a3ca-9a6a5eb21ecd")
 		(property "Reference" "MLX_A0"
 			(at 112.014 56.896 90)
@@ -3759,7 +3759,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "311-10KJRCT-ND"
+		(property "Digikey" "311-10.0KFRCT-ND"
 			(at 110.49 68.58 0)
 			(effects
 				(font
@@ -3837,7 +3837,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
+		(property "Digikey" "399-C1206C104K5RACTUCT-ND"
 			(at 102.87 35.56 0)
 			(effects
 				(font
@@ -4259,7 +4259,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "91984666-8352-4a68-9b60-ff1d844ca61c")
 		(property "Reference" "RF1"
@@ -4306,7 +4306,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "BAT54T1GOSCT-ND"
+		(property "Digikey" ""
 			(at 54.61 107.95 0)
 			(effects
 				(font
@@ -4493,7 +4493,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
+		(property "Digikey" "399-C1206C104K5RACTUCT-ND"
 			(at 46.99 35.56 0)
 			(effects
 				(font
@@ -4571,7 +4571,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "  2679-AGC0603X7R250-105KXPTR-ND"
+		(property "Digikey" "1276-1068-1-ND"
 			(at 85.09 35.56 0)
 			(effects
 				(font
@@ -4733,7 +4733,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "e956984f-f224-48fe-87de-88442bd3a777")
 		(property "Reference" "MLX_A1"
 			(at 100.584 56.896 90)
@@ -4813,7 +4813,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "f21973ec-38f3-4ab6-8b99-e8c7f6b8498c")
 		(property "Reference" "J3"

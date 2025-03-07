@@ -2974,7 +2974,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "  2679-AGC0603X7R250-105KXPTR-ND"
+		(property "Digikey" "1276-1068-1-ND"
 			(at 201.93 86.36 0)
 			(effects
 				(font
@@ -3417,7 +3417,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "46fed4e7-ea29-4c0e-afd5-19de07de8f49")
 		(property "Reference" "SW5"
 			(at 53.34 26.67 0)
@@ -3895,7 +3895,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "4713-GMC10X7R475K10NTCT-ND"
+		(property "Digikey" "1276-3182-1-ND"
 			(at 63.5 73.66 0)
 			(effects
 				(font
@@ -4039,7 +4039,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "  2679-AGC0402X7R500-103KNPTR-ND"
+		(property "Digikey" "311-1174-1-ND"
 			(at 190.5 96.52 0)
 			(effects
 				(font
@@ -4071,7 +4071,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "90fb4e66-159f-47ef-80bb-4f99098f0681")
 		(property "Reference" "PWR_J1"
 			(at 35.56 33.02 0)
@@ -4197,7 +4197,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
+		(property "Digikey" "399-C1206C104K5RACTUCT-ND"
 			(at 120.65 93.98 0)
 			(effects
 				(font

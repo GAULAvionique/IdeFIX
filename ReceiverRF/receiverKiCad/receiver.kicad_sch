@@ -5454,7 +5454,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "P1.5KDCCT-ND"
+		(property "Digikey" "541-4184-1-ND"
 			(at 240.03 91.44 0)
 			(effects
 				(font
@@ -5572,7 +5572,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 248.6152 138.43 0)
 			(effects
 				(font
@@ -5599,7 +5599,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "478-11769-1-ND"
+		(property "Digikey" "399-CBR06C160F5GACCT-ND"
 			(at 247.65 134.62 0)
 			(effects
 				(font
@@ -5808,7 +5808,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "311-10KJRCT-ND"
+		(property "Digikey" "311-10.0KFRCT-ND"
 			(at 107.95 54.61 0)
 			(effects
 				(font
@@ -6191,7 +6191,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "53d32038-176d-4f40-a8ae-66d8b251a063")
 		(property "Reference" "JP1"
 			(at 229.87 88.9 0)
@@ -6446,7 +6446,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "311-10KJRCT-ND"
+		(property "Digikey" "311-10.0KFRCT-ND"
 			(at 232.41 59.69 0)
 			(effects
 				(font
@@ -6524,7 +6524,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
+		(property "Digikey" "399-C1206C104K5RACTUCT-ND"
 			(at 96.52 40.64 0)
 			(effects
 				(font
@@ -6602,7 +6602,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
+		(property "Digikey" "399-C1206C104K5RACTUCT-ND"
 			(at 106.68 40.64 0)
 			(effects
 				(font
@@ -6680,7 +6680,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "311-10KJRCT-ND"
+		(property "Digikey" "311-10.0KFRCT-ND"
 			(at 246.38 99.06 0)
 			(effects
 				(font
@@ -6798,7 +6798,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 232.1052 138.43 0)
 			(effects
 				(font
@@ -6825,7 +6825,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "478-11769-1-ND"
+		(property "Digikey" "399-CBR06C160F5GACCT-ND"
 			(at 231.14 134.62 0)
 			(effects
 				(font
@@ -6903,7 +6903,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "  2679-AGC0603X7R250-105KXPTR-ND"
+		(property "Digikey" "1276-1068-1-ND"
 			(at 196.85 40.64 0)
 			(effects
 				(font
@@ -6981,7 +6981,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "  2679-AGC0603X7R250-105KXPTR-ND"
+		(property "Digikey" "1276-1068-1-ND"
 			(at 176.53 40.64 0)
 			(effects
 				(font
@@ -7059,7 +7059,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
+		(property "Digikey" "399-C1206C104K5RACTUCT-ND"
 			(at 116.84 40.64 0)
 			(effects
 				(font
@@ -7266,7 +7266,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "P10.0LCT-ND"
+		(property "Digikey" "RMCF1206FT10R0CT-ND"
 			(at 254 125.73 0)
 			(effects
 				(font
@@ -7344,7 +7344,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "  2679-AGC0402X7R500-103KNPTR-ND"
+		(property "Digikey" "311-1174-1-ND"
 			(at 167.64 40.64 0)
 			(effects
 				(font
@@ -7442,7 +7442,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "c493d559-9e06-4510-bde1-2ec1e0871e05")
 		(property "Reference" "J2"
@@ -7577,7 +7577,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
+		(property "Digikey" "399-C1206C104K5RACTUCT-ND"
 			(at 115.57 58.42 0)
 			(effects
 				(font
@@ -7655,7 +7655,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
+		(property "Digikey" "399-C1206C104K5RACTUCT-ND"
 			(at 86.36 40.64 0)
 			(effects
 				(font
@@ -7815,7 +7815,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "2679-AGC0402X7R500-104KNPTR-ND"
+		(property "Digikey" "399-C1206C104K5RACTUCT-ND"
 			(at 127 40.64 0)
 			(effects
 				(font
@@ -7893,7 +7893,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "311-10KJRCT-ND"
+		(property "Digikey" "311-10.0KFRCT-ND"
 			(at 242.57 59.69 0)
 			(effects
 				(font
