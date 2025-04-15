@@ -59,8 +59,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define SPI1_RMF_NCS_Pin GPIO_PIN_4
-#define SPI1_RMF_NCS_GPIO_Port GPIOA
 #define RFM_SDN_Pin GPIO_PIN_5
 #define RFM_SDN_GPIO_Port GPIOC
 #define RFM_GPIO1_Pin GPIO_PIN_0

@@ -369,9 +369,12 @@ typedef struct{
 	uint8_t snd_pin;
 	GPIO_TypeDef *nirq_port;
 	uint8_t nirq_pin;
-	uint8_t gpio_1;
-	uint8_t gpio_2;
-	uint8_t gpio_3;
+	GPIO_TypeDef *gpio_port_1;
+	uint8_t gpio_pin_1;
+	GPIO_TypeDef *gpio_port_2;
+	uint8_t gpio_pin_2;
+	GPIO_TypeDef *gpio_port_3;
+	uint8_t gpio_pin_3;
 
 	// ajouter channels/fréquence
 } RFM22;
@@ -381,8 +384,8 @@ typedef struct{
 } RFM22_configs;
 
 uint8_t RFM22_init(RFM22 *dev, RFM22_configs *confs);
-void RFM22_SPI_write(RFM22 *dev, uint8_t addr, uint8_t tx_value);
-void RFM22_SPI_read(RFM22 *dev, uint8_t addr, uint8_t rx_data[], uint8_t size);
+void RFM22_SPI_write(RFM22 *dev, uint8_t addr, uint8_t *tx_buffer, uint8_t size);
+void RFM22_SPI_read(RFM22 *dev, uint8_t addr, uint8_t *rx_buffer, uint8_t size);
 
 
 // ajouter config mode, config fréquence, read, write, auto-tx

@@ -15,6 +15,7 @@
   *
   ******************************************************************************
   */
+#include "GAUL_drivers/RFM22.h"
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -103,20 +104,31 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  RFM22 rfm22 = {
+		  .SPIx = &hspi1,
+		  .cs_port = GPIOA,
+		  .cs_pin = GPIO_PIN_4,
+		  .snd_port = GPIOC,
+		  .snd_pin = GPIO_PIN_5,
+		  .nirq_port = GPIOB,
+		  .nirq_pin = GPIO_PIN_10,
+		  .gpio_port_1 = GPIOB,
+		  .gpio_pin_1 = GPIO_PIN_0,
+		  .gpio_port_2 = GPIOB,
+		  .gpio_pin_1 = GPIO_PIN_1,
+		  .gpio_port_3 = GPIOB,
+		  .gpio_pin_1 = GPIO_PIN_2
+  };
+  //RFM22_init(&rfm22, confs);
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 1);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 1);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 1);
-	  HAL_Delay(100);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 0);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 0);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 0);
-	  HAL_Delay(100);
-
+	  uint8_t tx_data[] = {0, 0};
+	  uint8_t rx_data[] = {0, 0};
+	  RFM22_SPI_write(&rfm22, RH_RF22_REG_05_INTERRUPT_ENABLE1, tx_data, 2);
+	  RFM22_SPI_read(&rfm22, RH_RF22_REG_00_DEVICE_TYPE, rx_data, 2);
   }
   /* USER CODE END 3 */
 }
@@ -215,8 +227,8 @@ static void MX_SPI1_Init(void)
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -323,10 +335,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(RFM_SDN_GPIO_Port, RFM_SDN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|LED1_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(RFM_SDN_GPIO_Port, RFM_SDN_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : PA4 LED1_Pin LED2_Pin LED3_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|LED1_Pin|LED2_Pin|LED3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : RFM_SDN_Pin */
   GPIO_InitStruct.Pin = RFM_SDN_Pin;
@@ -348,13 +367,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin */
-  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : MLX_INT_Pin */
   GPIO_InitStruct.Pin = MLX_INT_Pin;
