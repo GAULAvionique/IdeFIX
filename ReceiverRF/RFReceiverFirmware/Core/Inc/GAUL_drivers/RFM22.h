@@ -380,10 +380,19 @@ typedef struct{
 } RFM22;
 
 typedef struct{
-	//ajouter configs
+	uint32_t nominal_freq; //Hz
+	uint16_t channel_step; // Hz
+	uint16_t freq_dev; // Hz
+	uint16_t datarate; //bps
 } RFM22_configs;
 
 uint8_t RFM22_init(RFM22 *dev, RFM22_configs *confs);
+uint8_t RFM22_transmit(RFM22 *dev, uint8_t *tx_buffer, uint8_t lenght);
+uint8_t RFM22_rx_mode(RFM22 *dev);
+uint8_t RFM22_available(RFM22 *dev);
+void RFM22_read_rx(RFM22 *dev, uint8_t *rx_data, uint8_t size);
+uint8_t RFM22_standby(RFM22 *dev);
+void RFM22_handle_interrupt(RFM22 *dev, uint8_t *rx_data, GPIO_TypeDef rx_led_port, uint8_t rx_led_pin, GPIO_TypeDef tx_led_port, uint8_t tx_led_pin);
 void RFM22_SPI_write(RFM22 *dev, uint8_t addr, uint8_t *tx_buffer, uint8_t size);
 void RFM22_SPI_read(RFM22 *dev, uint8_t addr, uint8_t *rx_buffer, uint8_t size);
 

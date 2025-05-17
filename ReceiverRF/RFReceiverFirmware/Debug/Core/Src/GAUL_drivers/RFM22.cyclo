@@ -1,3 +1,9 @@
-../Core/Src/GAUL_drivers/RFM22.c:11:9:RFM22_init	1
-../Core/Src/GAUL_drivers/RFM22.c:25:6:RFM22_SPI_write	1
-../Core/Src/GAUL_drivers/RFM22.c:37:6:RFM22_SPI_read	1
+../Core/Src/GAUL_drivers/RFM22.c:12:9:RFM22_init	2
+../Core/Src/GAUL_drivers/RFM22.c:100:9:RFM22_transmit	3
+../Core/Src/GAUL_drivers/RFM22.c:132:9:RFM22_rx_mode	1
+../Core/Src/GAUL_drivers/RFM22.c:141:9:RFM22_standby	1
+../Core/Src/GAUL_drivers/RFM22.c:152:9:RFM22_available	1
+../Core/Src/GAUL_drivers/RFM22.c:160:6:RFM22_read_rx	1
+../Core/Src/GAUL_drivers/RFM22.c:166:6:RFM22_handle_interrupt	3
+../Core/Src/GAUL_drivers/RFM22.c:188:6:RFM22_SPI_write	1
+../Core/Src/GAUL_drivers/RFM22.c:199:6:RFM22_SPI_read	1

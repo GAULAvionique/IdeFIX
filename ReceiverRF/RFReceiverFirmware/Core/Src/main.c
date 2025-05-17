@@ -58,11 +58,24 @@ static void MX_I2C1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
-
+void PUSH_ISR(uint16_t GPIO_pin);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+// hardware interrupt callback
+uint8_t rfm22_interrupt_flag = 0;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if (GPIO_Pin == RFM_NIRQ_Pin) rfm22_interrupt_flag = 1;
+	if ((GPIO_Pin == PUSH1_Pin) | (GPIO_Pin == PUSH2_Pin) | (GPIO_Pin == PUSH3_Pin) | (GPIO_Pin == PUSH4_Pin)) PUSH_ISR(GPIO_Pin);
+}
+
+
+void PUSH_ISR(uint16_t GPIO_pin)
+{
+
+}
 
 /* USER CODE END 0 */
 
@@ -119,16 +132,45 @@ int main(void)
 		  .gpio_port_3 = GPIOB,
 		  .gpio_pin_1 = GPIO_PIN_2
   };
-  //RFM22_init(&rfm22, confs);
+
+  RFM22_configs rfm22_confs = {
+		.nominal_freq = 433e6, //Hz
+		.channel_step = 10e3, // Hz
+		.freq_dev = 1250, // Hz
+		.datarate = 1250, //bps;
+  };
+  uint8_t stat = RFM22_init(&rfm22, &rfm22_confs);
+
+  uint8_t rx_data[] = {0, 0, 0};
+  uint8_t tx[] = {0, 0};
+  uint8_t tx_sent;
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  uint8_t tx_data[] = {0, 0};
-	  uint8_t rx_data[] = {0, 0};
-	  RFM22_SPI_write(&rfm22, RH_RF22_REG_05_INTERRUPT_ENABLE1, tx_data, 2);
-	  RFM22_SPI_read(&rfm22, RH_RF22_REG_00_DEVICE_TYPE, rx_data, 2);
+	  tx_sent = RFM22_transmit(&rfm22, tx, 2);
+	  HAL_Delay(1000);
+
+	  //handle rfm22 interrupts
+	  if (rfm22_interrupt_flag || !tx_sent)
+	  {
+		  uint8_t interrupts[] = {0, 0};
+		  RFM22_SPI_read(&rfm22, RH_RF22_REG_03_INTERRUPT_STATUS1, interrupts, 2);
+
+		  //pk sent interrupt
+		  if (interrupts[0] & RH_RF22_IPKSENT)
+		  {
+			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
+		  }
+
+		  //pk received
+		  if (interrupts[0] & RH_RF22_IPKVALID)
+		  {
+
+		  }
+		  rfm22_interrupt_flag = 0;
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -264,7 +306,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 3600-1;
+  htim1.Init.Prescaler = 900;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 65535;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -283,7 +325,7 @@ static void MX_TIM1_Init(void)
   {
     Error_Handler();
   }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_OC1REF;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
   {
@@ -335,13 +377,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|LED1_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_10|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(RFM_SDN_GPIO_Port, RFM_SDN_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA4 LED1_Pin LED2_Pin LED3_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_4|LED1_Pin|LED2_Pin|LED3_Pin;
+  /*Configure GPIO pins : PA4 PA10 LED2_Pin LED3_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_10|LED2_Pin|LED3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -360,10 +402,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : RFM_NIRQ_Pin PUSH1_Pin PUSH2_Pin PUSH3_Pin
-                           PUSH4_Pin */
-  GPIO_InitStruct.Pin = RFM_NIRQ_Pin|PUSH1_Pin|PUSH2_Pin|PUSH3_Pin
-                          |PUSH4_Pin;
+  /*Configure GPIO pin : RFM_NIRQ_Pin */
+  GPIO_InitStruct.Pin = RFM_NIRQ_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(RFM_NIRQ_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PUSH1_Pin PUSH2_Pin PUSH3_Pin PUSH4_Pin */
+  GPIO_InitStruct.Pin = PUSH1_Pin|PUSH2_Pin|PUSH3_Pin|PUSH4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -379,6 +425,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(MLX_INT_TRIG_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
