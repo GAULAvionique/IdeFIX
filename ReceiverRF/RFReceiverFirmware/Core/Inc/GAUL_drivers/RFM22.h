@@ -380,11 +380,10 @@ typedef struct{
 } RFM22;
 
 typedef struct{
-	uint32_t nominal_freq; //Hz
-	uint16_t channel_step; // Hz
-	uint16_t freq_dev; // Hz
-	uint16_t datarate; //bps
+	uint8_t registers[43];
+	uint8_t register_settings[43];
 } RFM22_configs;
+extern RFM22_configs rfm22_confs; // config GFSK, 2.4kbs, 20kHz freq dev, 50kHz channel step, CRC off, no header
 
 uint8_t RFM22_init(RFM22 *dev, RFM22_configs *confs);
 uint8_t RFM22_transmit(RFM22 *dev, uint8_t *tx_buffer, uint8_t lenght);
@@ -392,7 +391,10 @@ uint8_t RFM22_rx_mode(RFM22 *dev);
 uint8_t RFM22_available(RFM22 *dev);
 void RFM22_read_rx(RFM22 *dev, uint8_t *rx_data, uint8_t size);
 uint8_t RFM22_standby(RFM22 *dev);
-void RFM22_handle_interrupt(RFM22 *dev, uint8_t *rx_data, GPIO_TypeDef rx_led_port, uint8_t rx_led_pin, GPIO_TypeDef tx_led_port, uint8_t tx_led_pin);
+uint8_t RFM22_get_RSSI(RFM22 *dev);
+void RFM22_clr_tx_FIFO(RFM22 *dev);
+void RFM22_clr_rx_FIFO(RFM22 *dev);
+void RFM22_channel(RFM22 *dev, uint8_t channel);
 void RFM22_SPI_write(RFM22 *dev, uint8_t addr, uint8_t *tx_buffer, uint8_t size);
 void RFM22_SPI_read(RFM22 *dev, uint8_t addr, uint8_t *rx_buffer, uint8_t size);
 

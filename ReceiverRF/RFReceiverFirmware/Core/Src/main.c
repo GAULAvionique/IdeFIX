@@ -16,6 +16,8 @@
   ******************************************************************************
   */
 #include "GAUL_drivers/RFM22.h"
+#include "GAUL_drivers/Pulse_pin.h"
+#include "stdio.h"
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -46,6 +48,9 @@ I2C_HandleTypeDef hi2c1;
 SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN PV */
 
@@ -57,6 +62,9 @@ static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_TIM1_Init(void);
+static void MX_TIM2_Init(void);
+static void MX_TIM3_Init(void);
+static void MX_TIM4_Init(void);
 /* USER CODE BEGIN PFP */
 void PUSH_ISR(uint16_t GPIO_pin);
 /* USER CODE END PFP */
@@ -64,6 +72,8 @@ void PUSH_ISR(uint16_t GPIO_pin);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 // hardware interrupt callback
+
+
 uint8_t rfm22_interrupt_flag = 0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
@@ -111,12 +121,17 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI1_Init();
   MX_TIM1_Init();
+  MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
+  PulsePin_init(&htim2, &htim3, &htim4, 50);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   RFM22 rfm22 = {
 		  .SPIx = &hspi1,
 		  .cs_port = GPIOA,
@@ -133,43 +148,82 @@ int main(void)
 		  .gpio_pin_1 = GPIO_PIN_2
   };
 
-  RFM22_configs rfm22_confs = {
-		.nominal_freq = 433e6, //Hz
-		.channel_step = 10e3, // Hz
-		.freq_dev = 1250, // Hz
-		.datarate = 1250, //bps;
-  };
   uint8_t stat = RFM22_init(&rfm22, &rfm22_confs);
+  RFM22_channel(&rfm22, 10);
+
 
   uint8_t rx_data[] = {0, 0, 0};
-  uint8_t tx[] = {0, 0};
+  uint8_t tx[] = {1, 2, 4, 8};
   uint8_t tx_sent;
+  uint8_t packet[8] = {1, 2, 3, 4, 5, 6, 7, 8};
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  tx_sent = RFM22_transmit(&rfm22, tx, 2);
-	  HAL_Delay(1000);
+
+/*
+	  RFM22_transmit(&rfm22, packet, 8);
+	  uint32_t tick = HAL_GetTick();
+	  while (HAL_GetTick() - tick < 500);
+*/
+
+
+	  RFM22_SPI_read(&rfm22, RH_RF22_REG_07_OPERATING_MODE1, rx_data, 1);
+	  if (!(rx_data[0] & RH_RF22_RXON))
+	  {
+		  RFM22_rx_mode(&rfm22);
+      }
+	  RFM22_SPI_read(&rfm22, RH_RF22_REG_02_DEVICE_STATUS, rx_data, 1);
+	  //HAL_Delay(500);
+
 
 	  //handle rfm22 interrupts
-	  if (rfm22_interrupt_flag || !tx_sent)
+	  if (rfm22_interrupt_flag)
 	  {
+		  rfm22_interrupt_flag = 0;
 		  uint8_t interrupts[] = {0, 0};
 		  RFM22_SPI_read(&rfm22, RH_RF22_REG_03_INTERRUPT_STATUS1, interrupts, 2);
 
 		  //pk sent interrupt
 		  if (interrupts[0] & RH_RF22_IPKSENT)
 		  {
-			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
+			  PulsePin(0, &htim2);
 		  }
 
 		  //pk received
 		  if (interrupts[0] & RH_RF22_IPKVALID)
 		  {
-
+			  PulsePin(0, &htim2);
+			  uint8_t lenght = RFM22_available(&rfm22);
+			  uint8_t rssi = RFM22_get_RSSI(&rfm22);
+			  RFM22_read_rx(&rfm22, packet, 8);
 		  }
-		  rfm22_interrupt_flag = 0;
+
+		  //tx FIFO full
+		  if (interrupts[0 & RH_RF22_ITXFFAFULL])
+		  {
+			  RFM22_clr_tx_FIFO(&rfm22);
+		  }
+
+		  //rx FIFO full
+		  if (interrupts[0] & RH_RF22_IRXFFAFULL)
+		  {
+			  //read last received
+			  RFM22_clr_rx_FIFO(&rfm22);
+		  }
+
+		  //valid preamble
+		  if (interrupts[1] & RH_RF22_IPREAVAL)
+		  {
+			  PulsePin(1, &htim3);
+		  }
+
+		  //inval preamble
+		  if (interrupts[1] & RH_RF22_IPREAINVAL)
+		  {
+			  PulsePin(2, &htim4);
+		  }
 	  }
   }
   /* USER CODE END 3 */
@@ -357,6 +411,180 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 2 */
   HAL_TIM_MspPostInit(&htim1);
+
+}
+
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 16000;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 65535;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_OC_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_ACTIVE;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_OC_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 16000;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 65535;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_OC_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_ACTIVE;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_OC_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
+
+}
+
+/**
+  * @brief TIM4 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM4_Init(void)
+{
+
+  /* USER CODE BEGIN TIM4_Init 0 */
+
+  /* USER CODE END TIM4_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM4_Init 1 */
+
+  /* USER CODE END TIM4_Init 1 */
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 16000;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 65535;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_OC_Init(&htim4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_ACTIVE;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_OC_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM4_Init 2 */
+
+  /* USER CODE END TIM4_Init 2 */
 
 }
 

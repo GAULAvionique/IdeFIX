@@ -1,3 +1,4 @@
+"./Core/Src/GAUL_drivers/Pulse_pin.o"
 "./Core/Src/GAUL_drivers/RFM22.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32f1xx_hal_msp.o"

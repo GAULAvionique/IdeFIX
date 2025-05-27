@@ -510,7 +510,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "fab/receiver_3d.step",
       "svg": "",
       "vrml": ""
     },
