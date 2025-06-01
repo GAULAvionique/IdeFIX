@@ -17,7 +17,10 @@
   */
 #include "GAUL_drivers/RFM22.h"
 #include "GAUL_drivers/Pulse_pin.h"
+#include "GAUL_drivers/i2c_lcd.h"
+#include "GAUL_drivers/buzzer.h"
 #include "stdio.h"
+#include <string.h>
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -71,10 +74,15 @@ void PUSH_ISR(uint16_t GPIO_pin);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t is_print_menu = 0;
+uint8_t print_menu_delay = 10;
+uint8_t print_menu_timer = 0;
 // hardware interrupt callback
 
 
 uint8_t rfm22_interrupt_flag = 0;
+uint8_t pushbutton_interrupt_flag = 0;
+uint8_t pushbutton_pushed[4] = {0};
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	if (GPIO_Pin == RFM_NIRQ_Pin) rfm22_interrupt_flag = 1;
@@ -84,6 +92,30 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 void PUSH_ISR(uint16_t GPIO_pin)
 {
+	pushbutton_interrupt_flag = 1;
+	pushbutton_pushed[0] |= (GPIO_pin == PUSH1_Pin);
+	pushbutton_pushed[1] |= (GPIO_pin == PUSH2_Pin);
+	pushbutton_pushed[2] |= (GPIO_pin == PUSH3_Pin);
+	pushbutton_pushed[3] |= (GPIO_pin == PUSH4_Pin);
+
+}
+
+void print_menu(I2C_LCD_HandleTypeDef *lcd, uint8_t channel, uint8_t rssi, float latitude, float longitude)
+{
+	char line[20] = {'-'};
+	lcd_clear(lcd);
+	lcd_gotoxy(lcd, 0, 0); // ligne 1
+	snprintf(line, 20, "CH:%u     433.000.000", channel);
+	lcd_puts(lcd, line);
+	lcd_gotoxy(lcd, 0, 1); // ligne 2
+	snprintf(line, 20, "RSSI:%u", rssi);
+	lcd_puts(lcd, line);
+	lcd_gotoxy(lcd, 0, 2); // ligne 3
+	strcpy(line, "GPS");
+	lcd_puts(lcd, line);
+	lcd_gotoxy(lcd, 0, 3); // ligne 4
+	strcpy(line, "###-----------------");
+	lcd_puts(lcd, line);
 
 }
 
@@ -126,11 +158,19 @@ int main(void)
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   PulsePin_init(&htim2, &htim3, &htim4, 50);
+  buzzer_init(&htim1, TIM_CHANNEL_1);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  I2C_LCD_HandleTypeDef lcd;
+  lcd.hi2c = &hi2c1;
+  lcd.address = 0x27<<1;
+  lcd_init(&lcd);
+  lcd_clear(&lcd);
+  buzzer_init(&htim1, TIM_CHANNEL_1);
 
   RFM22 rfm22 = {
 		  .SPIx = &hspi1,
@@ -148,14 +188,22 @@ int main(void)
 		  .gpio_pin_1 = GPIO_PIN_2
   };
 
-  uint8_t stat = RFM22_init(&rfm22, &rfm22_confs);
+  RFM22_init(&rfm22, &rfm22_confs);
   RFM22_channel(&rfm22, 10);
+  print_menu(&lcd, 0, 0, 0, 0);
 
-
-  uint8_t rx_data[] = {0, 0, 0};
-  uint8_t tx[] = {1, 2, 4, 8};
-  uint8_t tx_sent;
+  //global vars
   uint8_t packet[8] = {1, 2, 3, 4, 5, 6, 7, 8};
+  uint8_t rssi = 0;
+  uint8_t ref_rssi = 0;
+  uint8_t buzzer_on = 0;
+  uint32_t buzzer_tick;
+  uint32_t freq;
+  uint8_t channel = 0;
+  float latitude = 0;
+  float longitude = 0;
+  uint8_t spi_rx[1] = {0};
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -168,15 +216,20 @@ int main(void)
 	  while (HAL_GetTick() - tick < 500);
 */
 
-
-	  RFM22_SPI_read(&rfm22, RH_RF22_REG_07_OPERATING_MODE1, rx_data, 1);
-	  if (!(rx_data[0] & RH_RF22_RXON))
+	  RFM22_SPI_read(&rfm22, RH_RF22_REG_07_OPERATING_MODE1, spi_rx, 1);
+	  if (!(spi_rx[0] & RH_RF22_RXON))
 	  {
 		  RFM22_rx_mode(&rfm22);
       }
-	  RFM22_SPI_read(&rfm22, RH_RF22_REG_02_DEVICE_STATUS, rx_data, 1);
-	  //HAL_Delay(500);
 
+	  if (buzzer_on)
+	  {
+		  if (HAL_GetTick()-buzzer_tick > 100)
+		  {
+			  buzzer_stop();
+			  buzzer_on = 0;
+		  }
+	  }
 
 	  //handle rfm22 interrupts
 	  if (rfm22_interrupt_flag)
@@ -196,8 +249,20 @@ int main(void)
 		  {
 			  PulsePin(0, &htim2);
 			  uint8_t lenght = RFM22_available(&rfm22);
-			  uint8_t rssi = RFM22_get_RSSI(&rfm22);
+
+			  // GPS routine
+			  rssi = RFM22_get_RSSI(&rfm22);
 			  RFM22_read_rx(&rfm22, packet, 8);
+			  latitude = 0; // à vérifier, supposé transformer en float direct
+			  longitude = 0;
+
+			  // rssi routine
+			  int16_t rssi_dif = rssi - ref_rssi;
+			  freq = 3000 + 200*rssi_dif;
+			  buzzer_on = 1;
+			  buzzer_tick = HAL_GetTick();
+			  buzzer_start(freq, 500);
+			  print_menu(&lcd, channel, rssi, latitude, longitude);
 		  }
 
 		  //tx FIFO full
@@ -210,13 +275,13 @@ int main(void)
 		  if (interrupts[0] & RH_RF22_IRXFFAFULL)
 		  {
 			  //read last received
-			  RFM22_clr_rx_FIFO(&rfm22);
+			  //RFM22_clr_rx_FIFO(&rfm22);
+			  PulsePin(1, &htim3);
 		  }
 
 		  //valid preamble
 		  if (interrupts[1] & RH_RF22_IPREAVAL)
 		  {
-			  PulsePin(1, &htim3);
 		  }
 
 		  //inval preamble
@@ -224,6 +289,37 @@ int main(void)
 		  {
 			  PulsePin(2, &htim4);
 		  }
+	  }
+
+	  if (pushbutton_interrupt_flag)
+	  {
+		  pushbutton_interrupt_flag = 0;
+
+		  if (pushbutton_pushed[0]) // channel up
+		  {
+			  channel++;
+			  RFM22_channel(&rfm22, channel);
+			  is_print_menu = 1;
+		  }
+		  if (pushbutton_pushed[1]) // channel down
+		  {
+			  channel--;
+			  RFM22_channel(&rfm22, channel);
+			  is_print_menu = 1;
+		  }
+		  if (pushbutton_pushed[2]) // zero
+		  {
+			  ref_rssi = rssi;
+		  }
+		  if (pushbutton_pushed[3])
+		  {
+
+		  }
+
+		  pushbutton_pushed[0] = 0;
+		  pushbutton_pushed[1] = 0;
+		  pushbutton_pushed[2] = 0;
+		  pushbutton_pushed[3] = 0;
 	  }
   }
   /* USER CODE END 3 */
