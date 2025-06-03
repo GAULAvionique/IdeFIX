@@ -54,6 +54,7 @@ TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
+TIM_HandleTypeDef htim5;
 
 /* USER CODE BEGIN PV */
 
@@ -68,6 +69,7 @@ static void MX_TIM1_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM4_Init(void);
+static void MX_TIM5_Init(void);
 /* USER CODE BEGIN PFP */
 void PUSH_ISR(uint16_t GPIO_pin);
 /* USER CODE END PFP */
@@ -156,9 +158,10 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
-  PulsePin_init(&htim2, &htim3, &htim4, 50);
-  buzzer_init(&htim1, TIM_CHANNEL_1);
+  PulsePin_init(&htim1, TIM_CHANNEL_1, &htim2, &htim3, &htim4, 50);
+  buzzer_init(&htim1, TIM_CHANNEL_1, &htim5, TIM_CHANNEL_1);
 
   /* USER CODE END 2 */
 
@@ -170,7 +173,6 @@ int main(void)
   lcd.address = 0x27<<1;
   lcd_init(&lcd);
   lcd_clear(&lcd);
-  buzzer_init(&htim1, TIM_CHANNEL_1);
 
   RFM22 rfm22 = {
 		  .SPIx = &hspi1,
@@ -222,14 +224,6 @@ int main(void)
 		  RFM22_rx_mode(&rfm22);
       }
 
-	  if (buzzer_on)
-	  {
-		  if (HAL_GetTick()-buzzer_tick > 100)
-		  {
-			  buzzer_stop();
-			  buzzer_on = 0;
-		  }
-	  }
 
 	  //handle rfm22 interrupts
 	  if (rfm22_interrupt_flag)
@@ -261,7 +255,7 @@ int main(void)
 			  freq = 3000 + 200*rssi_dif;
 			  buzzer_on = 1;
 			  buzzer_tick = HAL_GetTick();
-			  buzzer_start(freq, 500);
+			  buzzer_beep(freq, 200);
 			  print_menu(&lcd, channel, rssi, latitude, longitude);
 		  }
 
@@ -299,13 +293,13 @@ int main(void)
 		  {
 			  channel++;
 			  RFM22_channel(&rfm22, channel);
-			  is_print_menu = 1;
+			  print_menu(&lcd, channel, rssi, latitude, longitude);
 		  }
 		  if (pushbutton_pushed[1]) // channel down
 		  {
 			  channel--;
 			  RFM22_channel(&rfm22, channel);
-			  is_print_menu = 1;
+			  print_menu(&lcd, channel, rssi, latitude, longitude);
 		  }
 		  if (pushbutton_pushed[2]) // zero
 		  {
@@ -681,6 +675,64 @@ static void MX_TIM4_Init(void)
   /* USER CODE BEGIN TIM4_Init 2 */
 
   /* USER CODE END TIM4_Init 2 */
+
+}
+
+/**
+  * @brief TIM5 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM5_Init(void)
+{
+
+  /* USER CODE BEGIN TIM5_Init 0 */
+
+  /* USER CODE END TIM5_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM5_Init 1 */
+
+  /* USER CODE END TIM5_Init 1 */
+  htim5.Instance = TIM5;
+  htim5.Init.Prescaler = 16000;
+  htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim5.Init.Period = 65535;
+  htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim5, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_OC_Init(&htim5) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim5, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_ACTIVE;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_OC_ConfigChannel(&htim5, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM5_Init 2 */
+
+  /* USER CODE END TIM5_Init 2 */
 
 }
 
