@@ -130,28 +130,28 @@
 		)
 	)
 	(pad "1" smd rect
-		(at -2.2 -1.2 270)
-		(size 1.4 1.8)
-		(layers "F.Cu" "F.Paste" "F.Mask")
-		(uuid "315c6495-ac4a-4a33-a197-7598a6c00d1b")
-	)
-	(pad "2" smd rect
 		(at -2.2 1.2 270)
 		(size 1.4 1.8)
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(uuid "0e667814-ff0a-4cb6-b377-75aabfecb14a")
 	)
-	(pad "3" smd rect
-		(at 2.2 1.2 270)
+	(pad "2" smd rect
+		(at -2.2 -1.2 270)
 		(size 1.4 1.8)
 		(layers "F.Cu" "F.Paste" "F.Mask")
-		(uuid "4867fbc4-810e-474b-961a-33af800bb0b7")
+		(uuid "315c6495-ac4a-4a33-a197-7598a6c00d1b")
 	)
-	(pad "4" smd rect
+	(pad "3" smd rect
 		(at 2.2 -1.2 270)
 		(size 1.4 1.8)
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(uuid "0cbd243e-62c2-43ac-b460-c9e9291f756b")
+	)
+	(pad "4" smd rect
+		(at 2.2 1.2 270)
+		(size 1.4 1.8)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "4867fbc4-810e-474b-961a-33af800bb0b7")
 	)
 	(model "${KICAD8_3DMODEL_DIR}/Crystal.3dshapes/Crystal_SMD_Abracon_ABS25-4Pin_8.0x3.8mm.wrl"
 		(offset
