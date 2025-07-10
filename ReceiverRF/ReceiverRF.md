@@ -11,5 +11,5 @@ TODO:
 - [ ] Remplacer header par connecteurs?
 - [X] vrai interrupteur
 - [X] Reverse polarity protection
-- [ ] Board essentiel + board interface
+- [X] Board essentiel + board interface
 - [X] Vérifier alimentation

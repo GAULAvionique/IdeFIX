@@ -4,6 +4,11 @@
 	(generator_version "8.0")
 	(uuid "5a5dc42e-cde0-4501-b278-55f2a590d535")
 	(paper "A4")
+	(title_block
+		(title "IdeFIX")
+		(rev "v2")
+		(company "GAUL")
+	)
 	(lib_symbols
 		(symbol "+3.3V_1"
 			(power)
@@ -4577,7 +4582,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "91984666-8352-4a68-9b60-ff1d844ca61c")
 		(property "Reference" "RF1"
@@ -4588,7 +4593,7 @@
 				)
 			)
 		)
-		(property "Value" "BAT54T1G"
+		(property "Value" "RFM22B"
 			(at 53.34 106.68 0)
 			(effects
 				(font

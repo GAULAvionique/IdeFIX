@@ -4,6 +4,11 @@
 	(generator_version "8.0")
 	(uuid "252efdbe-d212-478c-8210-dbdb359092fd")
 	(paper "A4")
+	(title_block
+		(title "IdeFIX")
+		(rev "v2")
+		(company "GAUL")
+	)
 	(lib_symbols
 		(symbol "+3.3V_1"
 			(power)
@@ -3951,7 +3956,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "BZV55C18"
+		(property "Value" "SZMMSZ4679T1G"
 			(at 81.28 41.9099 90)
 			(effects
 				(font
@@ -3969,7 +3974,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BZV55_SER.pdf"
+		(property "Datasheet" "https://www.digikey.ca/en/products/detail/onsemi/SZMMSZ4679T1G/5404986?s=N4IgTCBcDaIMoC0CyTEBYBsB2AnAFQEYBxAeTgGE8BaAOQBEQBdAXyA"
 			(at 78.74 40.64 0)
 			(effects
 				(font
@@ -4756,7 +4761,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_MOSFETs"
+		(property "Datasheet" "https://www.digikey.ca/en/products/detail/onsemi/NTR4101PT1G/687096?s=N4IgTCBcDaIHIBUBKAWAjABjQBQWg4gPIDKAwggLRwAiIAugL5A"
 			(at 83.82 38.1 0)
 			(effects
 				(font
@@ -5299,7 +5304,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.digikey.ca/en/products/detail/vishay-dale/CRCW1206100KFKEAHP/2222454"
 			(at 71.12 50.8 0)
 			(effects
 				(font
@@ -5317,7 +5322,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" ""
+		(property "Digikey" "  541-100KUTR-ND"
 			(at 71.12 50.8 0)
 			(effects
 				(font
