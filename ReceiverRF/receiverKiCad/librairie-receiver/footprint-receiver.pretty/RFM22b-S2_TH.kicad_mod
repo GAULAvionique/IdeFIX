@@ -201,7 +201,7 @@
 	)
 	(pad "1" thru_hole roundrect
 		(at -7.09 -7.63)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset 0.475 0)
 		)
@@ -212,7 +212,7 @@
 	)
 	(pad "2" thru_hole roundrect
 		(at -7.09 -5.63)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset 0.475 0)
 		)
@@ -223,7 +223,7 @@
 	)
 	(pad "3" thru_hole roundrect
 		(at -7.09 -3.63)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset 0.475 0)
 		)
@@ -234,7 +234,7 @@
 	)
 	(pad "4" thru_hole roundrect
 		(at -7.09 -1.63)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset 0.475 0)
 		)
@@ -245,7 +245,7 @@
 	)
 	(pad "5" thru_hole roundrect
 		(at -7.09 0.37)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset 0.475 0)
 		)
@@ -256,7 +256,7 @@
 	)
 	(pad "6" thru_hole roundrect
 		(at -7.09 2.37)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset 0.475 0)
 		)
@@ -267,7 +267,7 @@
 	)
 	(pad "7" thru_hole roundrect
 		(at -7.09 4.37)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset 0.475 0)
 		)
@@ -278,7 +278,7 @@
 	)
 	(pad "8" thru_hole roundrect
 		(at -7.09 6.37)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset 0.475 0)
 		)
@@ -289,7 +289,7 @@
 	)
 	(pad "9" thru_hole roundrect
 		(at 8.91 -7.63)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset -0.475 0)
 		)
@@ -300,7 +300,7 @@
 	)
 	(pad "10" thru_hole roundrect
 		(at 8.91 -5.63)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset -0.475 0)
 		)
@@ -311,7 +311,7 @@
 	)
 	(pad "11" thru_hole roundrect
 		(at 8.91 -3.63)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset -0.475 0)
 		)
@@ -322,7 +322,7 @@
 	)
 	(pad "12" thru_hole roundrect
 		(at 8.91 -1.63)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset -0.475 0)
 		)
@@ -333,7 +333,7 @@
 	)
 	(pad "13" thru_hole roundrect
 		(at 8.91 0.37)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset -0.475 0)
 		)
@@ -344,7 +344,7 @@
 	)
 	(pad "14" thru_hole roundrect
 		(at 8.91 2.37)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset -0.475 0)
 		)
@@ -355,7 +355,7 @@
 	)
 	(pad "15" thru_hole roundrect
 		(at 8.91 4.37)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset -0.475 0)
 		)
@@ -366,7 +366,7 @@
 	)
 	(pad "16" thru_hole roundrect
 		(at 8.91 6.37)
-		(size 2.95 1.27)
+		(size 2.95 1.4)
 		(drill 1
 			(offset -0.475 0)
 		)
