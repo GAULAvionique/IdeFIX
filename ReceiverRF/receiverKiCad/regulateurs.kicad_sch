@@ -4744,7 +4744,7 @@
 				)
 			)
 		)
-		(property "Value" "PMOS"
+		(property "Value" "NTR4101PT1G"
 			(at 71.12 31.75 90)
 			(effects
 				(font

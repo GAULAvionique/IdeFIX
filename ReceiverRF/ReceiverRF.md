@@ -7,8 +7,8 @@ TODO:
 - [X] Footprint correct cristal ***
 - [X] Logic converter 3V3 - 5V
 - [X] UART out
-- [ ] Header correct
-- [ ] Remplacer header par connecteurs?
+- [X] Header correct
+- [X] Remplacer header par connecteurs?
 - [X] vrai interrupteur
 - [X] Reverse polarity protection
 - [X] Board essentiel + board interface
