@@ -3947,7 +3947,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "42ce558f-6d3b-40f6-aa01-21de7d493d1e")
-		(property "Reference" "D1"
+		(property "Reference" "DZ1"
 			(at 81.28 39.3699 90)
 			(effects
 				(font
@@ -3965,7 +3965,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MiniMELF"
+		(property "Footprint" "Diode_SMD:D_SOD-123"
 			(at 74.295 40.64 0)
 			(effects
 				(font
@@ -4010,7 +4010,7 @@
 		(instances
 			(project ""
 				(path "/439ba515-58d4-4b14-87ab-b438dcf423a5/daa1b3d3-1e11-4b02-868f-dd095818f20a"
-					(reference "D1")
+					(reference "DZ1")
 					(unit 1)
 				)
 			)

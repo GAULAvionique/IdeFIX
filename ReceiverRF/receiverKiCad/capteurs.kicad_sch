@@ -3172,7 +3172,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "117efbd2-e265-4836-85e8-7209113689b4")
-		(property "Reference" "D4"
+		(property "Reference" "D3"
 			(at 205.74 48.26 0)
 			(effects
 				(font
@@ -3233,7 +3233,7 @@
 		(instances
 			(project "receiver"
 				(path "/439ba515-58d4-4b14-87ab-b438dcf423a5/56b56711-4d65-4df6-9470-6736a83e438d"
-					(reference "D4")
+					(reference "D3")
 					(unit 1)
 				)
 			)
@@ -3579,7 +3579,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "30b76d5a-2d18-489d-8fa2-858c5f2519b6")
-		(property "Reference" "D2"
+		(property "Reference" "D1"
 			(at 182.88 48.26 0)
 			(effects
 				(font
@@ -3640,7 +3640,7 @@
 		(instances
 			(project "receiver"
 				(path "/439ba515-58d4-4b14-87ab-b438dcf423a5/56b56711-4d65-4df6-9470-6736a83e438d"
-					(reference "D2")
+					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -5272,7 +5272,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f827f362-008d-4252-b075-1c743c45711b")
-		(property "Reference" "D3"
+		(property "Reference" "D2"
 			(at 194.31 48.26 0)
 			(effects
 				(font
@@ -5333,7 +5333,7 @@
 		(instances
 			(project "receiver"
 				(path "/439ba515-58d4-4b14-87ab-b438dcf423a5/56b56711-4d65-4df6-9470-6736a83e438d"
-					(reference "D3")
+					(reference "D2")
 					(unit 1)
 				)
 			)
