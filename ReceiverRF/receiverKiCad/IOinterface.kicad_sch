@@ -3470,6 +3470,16 @@
 		)
 		(uuid "05502024-5abd-48f4-b33f-18f6afc29fac")
 	)
+	(text "Interface Board"
+		(exclude_from_sim no)
+		(at 202.438 171.958 0)
+		(effects
+			(font
+				(size 4 4)
+			)
+		)
+		(uuid "0aec9526-65d9-4766-9844-015eb1e35b59")
+	)
 	(text "Connection main-board / interface-board"
 		(exclude_from_sim no)
 		(at 59.944 21.59 0)

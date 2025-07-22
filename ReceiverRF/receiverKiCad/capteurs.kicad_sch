@@ -2566,6 +2566,16 @@
 		)
 		(uuid "55a42d4f-edc0-44e1-9d6f-d6c97a46ad5c")
 	)
+	(text "Sensors"
+		(exclude_from_sim no)
+		(at 193.04 172.974 0)
+		(effects
+			(font
+				(size 4 4)
+			)
+		)
+		(uuid "61a551f8-9489-4e95-bddc-ae92ea92339b")
+	)
 	(text "RFM22"
 		(exclude_from_sim no)
 		(at 19.05 92.71 0)
