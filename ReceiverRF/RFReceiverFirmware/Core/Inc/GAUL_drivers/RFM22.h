@@ -364,17 +364,17 @@
 typedef struct{
 	SPI_HandleTypeDef *SPIx;
 	GPIO_TypeDef *cs_port;
-	uint8_t cs_pin;
+	uint16_t cs_pin;
 	GPIO_TypeDef *snd_port;
-	uint8_t snd_pin;
+	uint16_t snd_pin;
 	GPIO_TypeDef *nirq_port;
-	uint8_t nirq_pin;
+	uint16_t nirq_pin;
 	GPIO_TypeDef *gpio_port_1;
-	uint8_t gpio_pin_1;
+	uint16_t gpio_pin_1;
 	GPIO_TypeDef *gpio_port_2;
-	uint8_t gpio_pin_2;
+	uint16_t gpio_pin_2;
 	GPIO_TypeDef *gpio_port_3;
-	uint8_t gpio_pin_3;
+	uint16_t gpio_pin_3;
 
 	// ajouter channels/fréquence
 } RFM22;

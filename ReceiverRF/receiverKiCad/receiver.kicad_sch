@@ -5470,7 +5470,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.st.com/resource/en/datasheet/stm32f103re.pdf"
+		(property "Datasheet" "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32F103RET6/1852094?s=N4IgTCBcDaICwE4DsBaAbHTKByAREAugL5A"
 			(at 153.67 97.79 0)
 			(effects
 				(font
@@ -5479,7 +5479,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Microprocessor"
 			(at 153.67 97.79 0)
 			(effects
 				(font
@@ -5810,7 +5810,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k5 Res"
 			(at 39.37 93.98 0)
 			(effects
 				(font
@@ -5955,7 +5955,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "16pF Cap"
 			(at 46.99 137.16 0)
 			(effects
 				(font
@@ -6163,7 +6163,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k Res"
 			(at 107.95 54.61 0)
 			(effects
 				(font
@@ -6241,7 +6241,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "120 ohm @ 100 MHz"
+		(property "Description" "Ferrite bead"
 			(at 187.96 36.83 0)
 			(effects
 				(font
@@ -6451,7 +6451,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF Cap"
 			(at 138.43 40.64 0)
 			(effects
 				(font
@@ -6460,7 +6460,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "  2679-AGC1206X6S250-106KXETR-ND"
+		(property "Digikey" "1276-1804-1-ND"
 			(at 138.43 40.64 0)
 			(effects
 				(font
@@ -6554,7 +6554,7 @@
 		(at 29.21 93.98 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "53d32038-176d-4f40-a8ae-66d8b251a063")
@@ -6802,7 +6802,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k Res"
 			(at 31.75 62.23 0)
 			(effects
 				(font
@@ -6880,7 +6880,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF Cap"
 			(at 96.52 40.64 0)
 			(effects
 				(font
@@ -6958,7 +6958,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF Cap"
 			(at 106.68 40.64 0)
 			(effects
 				(font
@@ -7036,7 +7036,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k Res"
 			(at 45.72 101.6 0)
 			(effects
 				(font
@@ -7181,7 +7181,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "16pF Cap"
 			(at 30.48 137.16 0)
 			(effects
 				(font
@@ -7259,7 +7259,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF Cap"
 			(at 196.85 40.64 0)
 			(effects
 				(font
@@ -7337,7 +7337,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF Cap"
 			(at 176.53 40.64 0)
 			(effects
 				(font
@@ -7415,7 +7415,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF Cap"
 			(at 116.84 40.64 0)
 			(effects
 				(font
@@ -7622,7 +7622,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10o Res"
 			(at 53.34 128.27 0)
 			(effects
 				(font
@@ -7700,7 +7700,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10nF Cap"
 			(at 167.64 40.64 0)
 			(effects
 				(font
@@ -7805,7 +7805,7 @@
 		(at 45.72 33.02 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -7894,7 +7894,7 @@
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -8002,7 +8002,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF Cap"
 			(at 115.57 58.42 0)
 			(effects
 				(font
@@ -8080,7 +8080,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF Cap"
 			(at 86.36 40.64 0)
 			(effects
 				(font
@@ -8156,7 +8156,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "406C35D08M00000"
+		(property "Description" "8MHz Cristal"
 			(at 38.1 128.27 0)
 			(effects
 				(font
@@ -8165,7 +8165,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "CTX853CT-ND"
+		(property "Digikey" "110-406C35D08M00000CT-ND"
 			(at 38.1 128.27 0)
 			(effects
 				(font
@@ -8240,7 +8240,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF Cap"
 			(at 127 40.64 0)
 			(effects
 				(font
@@ -8318,7 +8318,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k Res"
 			(at 41.91 62.23 0)
 			(effects
 				(font

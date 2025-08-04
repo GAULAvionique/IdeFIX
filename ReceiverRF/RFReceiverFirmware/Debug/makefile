@@ -61,8 +61,8 @@ all: main-build
 main-build: RFReceiverFirmware.elf secondary-outputs
 
 # Tool invocations
-RFReceiverFirmware.elf RFReceiverFirmware.map: $(OBJS) $(USER_OBJS) C:\Users\victo\Desktop\GAUL\Ordinateur-de-bord\ReceiverRF\RFReceiverFirmware\STM32F103RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "RFReceiverFirmware.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\victo\Desktop\GAUL\Ordinateur-de-bord\ReceiverRF\RFReceiverFirmware\STM32F103RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RFReceiverFirmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+RFReceiverFirmware.elf RFReceiverFirmware.map: $(OBJS) $(USER_OBJS) C:\Users\victo\Desktop\GAUL\IdeFIX\ReceiverRF\RFReceiverFirmware\STM32F103RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "RFReceiverFirmware.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\victo\Desktop\GAUL\IdeFIX\ReceiverRF\RFReceiverFirmware\STM32F103RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RFReceiverFirmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

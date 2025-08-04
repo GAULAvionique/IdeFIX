@@ -1,3 +1,4 @@
-../Core/Src/GAUL_drivers/Pulse_pin.c:13:6:HAL_TIM_OC_DelayElapsedCallback	16	static
-../Core/Src/GAUL_drivers/Pulse_pin.c:39:6:PulsePin_init	24	static
-../Core/Src/GAUL_drivers/Pulse_pin.c:51:6:PulsePin	16	static
+../Core/Src/GAUL_drivers/Pulse_pin.c:13:19:PulsePin_init	56	static
+../Core/Src/GAUL_drivers/Pulse_pin.c:31:6:PulsePin	8	static
+../Core/Src/GAUL_drivers/Pulse_pin.c:40:6:_Stop_Pulse	40	static
+../Core/Src/GAUL_drivers/Pulse_pin.c:49:19:_find_pulse_pin	48	static

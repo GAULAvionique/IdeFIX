@@ -6,66 +6,56 @@
  */
 #include "GAUL_drivers/Pulse_pin.h"
 
+static Pulse_Pin_Typedef pin_list[MAX_PINS];
+static int nb_pins = 0;
 
-static TIM_HandleTypeDef *buzzer_htim = NULL;
-static uint32_t         buzzer_channel = 0;
 
-void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
+Pulse_Pin_Typedef PulsePin_init(GPIO_TypeDef *pin_port, uint16_t pin, TIM_HandleTypeDef *htim, HAL_TIM_ActiveChannel tim_channel)
 {
-	if (htim->Instance == TIM2 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
-	{
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 0);
-		HAL_TIM_OC_Stop_IT(htim, TIM_CHANNEL_1);
-	}
-	if (htim->Instance == TIM3 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
-	{
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 0);
-		HAL_TIM_OC_Stop_IT(htim, TIM_CHANNEL_1);
-	}
-	if (htim->Instance == TIM4 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
-	{
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 0);
-		HAL_TIM_OC_Stop_IT(htim, TIM_CHANNEL_1);
-	}
-	if (htim->Instance == TIM5 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
-	{
-		if (buzzer_htim == NULL) return;
+	  HAL_TIM_OC_Stop_IT(htim, tim_channel);
+	  int pin_id = set_oc_callback(htim, tim_channel, &_Stop_Pulse);
 
-		HAL_TIM_PWM_Stop(buzzer_htim, buzzer_channel);
-	}
+	  Pulse_Pin_Typedef pin_struct = {
+		  .pin_id = pin_id,
+		  .pin_port = pin_port,
+		  .pin = pin,
+		  .htim = htim,
+		  .channel = tim_channel
+	  };
+	  pin_list[nb_pins] = pin_struct;
+	  nb_pins++;
+
+	  return pin_struct;
+}
+
+void PulsePin(Pulse_Pin_Typedef pin, uint16_t time)
+{
+	  __HAL_TIM_SET_COMPARE(pin.htim, pin.channel, time);
+	  HAL_GPIO_WritePin(pin.pin_port, pin.pin, 1);
+	  __HAL_TIM_SET_COUNTER(pin.htim, 0);
+	  HAL_TIM_OC_Start_IT(pin.htim, pin.channel);
 }
 
 
-void PulsePin_init(TIM_HandleTypeDef *buz_htim, uint32_t buz_channel, TIM_HandleTypeDef *htim2, TIM_HandleTypeDef *htim3, TIM_HandleTypeDef *htim4, uint16_t time)
+void _Stop_Pulse(int pin_id)
 {
-	  buzzer_htim = buz_htim;
-	  buzzer_channel = buz_channel;
-	  __HAL_TIM_SET_COMPARE(htim2, TIM_CHANNEL_1, time);
-	  __HAL_TIM_SET_COMPARE(htim3, TIM_CHANNEL_1, time);
-	  __HAL_TIM_SET_COMPARE(htim4, TIM_CHANNEL_1, time);
-	  HAL_TIM_OC_Stop_IT(htim2, TIM_CHANNEL_1);
-	  HAL_TIM_OC_Stop_IT(htim3, TIM_CHANNEL_1);
-	  HAL_TIM_OC_Stop_IT(htim4, TIM_CHANNEL_1);
+	Pulse_Pin_Typedef pin = _find_pulse_pin(pin_id);
+	HAL_GPIO_WritePin(pin.pin_port, pin.pin, 0);
+	HAL_TIM_OC_Stop_IT(pin.htim, pin.channel);
 }
 
-void PulsePin(uint8_t pin, TIM_HandleTypeDef *htim)
+
+
+Pulse_Pin_Typedef _find_pulse_pin(int pin_id)
 {
-	if (pin == 0)
+	Pulse_Pin_Typedef pin;
+	for (int i=0; i < MAX_PINS; i++)
 	{
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 1);
-		  __HAL_TIM_SET_COUNTER(htim, 0);
-		  HAL_TIM_OC_Start_IT(htim, TIM_CHANNEL_1);
+		pin = pin_list[i];
+		if (pin.pin_id == pin_id)
+		{
+			return pin;
+		}
 	}
-	if (pin == 1)
-	{
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 1);
-		  __HAL_TIM_SET_COUNTER(htim, 0);
-		  HAL_TIM_OC_Start_IT(htim, TIM_CHANNEL_1);
-	}
-	if (pin == 2)
-	{
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 1);
-		  __HAL_TIM_SET_COUNTER(htim, 0);
-		  HAL_TIM_OC_Start_IT(htim, TIM_CHANNEL_1);
-	}
+	return pin;
 }

@@ -59,39 +59,43 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define RFM_SDN_Pin GPIO_PIN_5
-#define RFM_SDN_GPIO_Port GPIOC
-#define RFM_GPIO1_Pin GPIO_PIN_0
-#define RFM_GPIO1_GPIO_Port GPIOB
-#define RFM_GPIO2_Pin GPIO_PIN_1
-#define RFM_GPIO2_GPIO_Port GPIOB
-#define RFM_GPIO3_Pin GPIO_PIN_2
-#define RFM_GPIO3_GPIO_Port GPIOB
-#define RFM_NIRQ_Pin GPIO_PIN_10
-#define RFM_NIRQ_GPIO_Port GPIOB
-#define RFM_NIRQ_EXTI_IRQn EXTI15_10_IRQn
-#define PUSH1_Pin GPIO_PIN_12
-#define PUSH1_GPIO_Port GPIOB
-#define PUSH1_EXTI_IRQn EXTI15_10_IRQn
-#define PUSH2_Pin GPIO_PIN_13
-#define PUSH2_GPIO_Port GPIOB
-#define PUSH2_EXTI_IRQn EXTI15_10_IRQn
-#define PUSH3_Pin GPIO_PIN_14
-#define PUSH3_GPIO_Port GPIOB
-#define PUSH3_EXTI_IRQn EXTI15_10_IRQn
-#define PUSH4_Pin GPIO_PIN_15
-#define PUSH4_GPIO_Port GPIOB
-#define PUSH4_EXTI_IRQn EXTI15_10_IRQn
-#define LED2_Pin GPIO_PIN_11
+#define LED1_Pin GPIO_PIN_0
+#define LED1_GPIO_Port GPIOA
+#define LED2_Pin GPIO_PIN_1
 #define LED2_GPIO_Port GPIOA
-#define LED3_Pin GPIO_PIN_12
+#define LED3_Pin GPIO_PIN_2
 #define LED3_GPIO_Port GPIOA
-#define MLX_INT_Pin GPIO_PIN_15
-#define MLX_INT_GPIO_Port GPIOA
+#define RFM_SDN_Pin GPIO_PIN_3
+#define RFM_SDN_GPIO_Port GPIOA
+#define RFM_IRQ_Pin GPIO_PIN_4
+#define RFM_IRQ_GPIO_Port GPIOA
+#define RFM_CS_Pin GPIO_PIN_4
+#define RFM_CS_GPIO_Port GPIOC
+#define RFM_GPIO3_Pin GPIO_PIN_5
+#define RFM_GPIO3_GPIO_Port GPIOC
+#define RFM_GPIO2_Pin GPIO_PIN_0
+#define RFM_GPIO2_GPIO_Port GPIOB
+#define RFM_GPIO1_Pin GPIO_PIN_1
+#define RFM_GPIO1_GPIO_Port GPIOB
+#define RFM_GPIO5_Pin GPIO_PIN_2
+#define RFM_GPIO5_GPIO_Port GPIOB
+#define RFM_GPIO4_Pin GPIO_PIN_10
+#define RFM_GPIO4_GPIO_Port GPIOB
+#define GPIO1_Pin GPIO_PIN_6
+#define GPIO1_GPIO_Port GPIOC
+#define GPIO2_Pin GPIO_PIN_7
+#define GPIO2_GPIO_Port GPIOC
+#define GPIO3_Pin GPIO_PIN_8
+#define GPIO3_GPIO_Port GPIOC
+#define GPIO4_Pin GPIO_PIN_9
+#define GPIO4_GPIO_Port GPIOC
 #define MLX_INT_TRIG_Pin GPIO_PIN_11
-#define MLX_INT_TRIG_GPIO_Port GPIOC
+#define MLX_INT_TRIG_GPIO_Port GPIOA
+#define MLX_INT_Pin GPIO_PIN_12
+#define MLX_INT_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
+#define RECEIVE // TRANSMIT or RECEIVE
 
 /* USER CODE END Private defines */
 

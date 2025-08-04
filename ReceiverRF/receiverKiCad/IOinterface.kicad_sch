@@ -4100,7 +4100,7 @@
 		(at 215.9 36.83 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -4224,7 +4224,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "50o Res"
 			(at 147.32 85.09 0)
 			(effects
 				(font
@@ -4301,7 +4301,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k Res"
 			(at 186.69 127 0)
 			(effects
 				(font
@@ -4511,7 +4511,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "PCB connector"
 			(at 49.53 45.72 0)
 			(effects
 				(font
@@ -4614,7 +4614,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF Cap"
 			(at 189.23 29.21 0)
 			(effects
 				(font
@@ -4826,7 +4826,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "SMTB-0927-TW-R"
+		(property "Description" "Buzzer"
 			(at 149.86 111.76 0)
 			(effects
 				(font
@@ -5037,7 +5037,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF Cap"
 			(at 147.32 29.21 0)
 			(effects
 				(font
@@ -5115,7 +5115,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Button"
 			(at 186.69 138.43 0)
 			(effects
 				(font
@@ -5503,7 +5503,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k Res"
 			(at 146.05 52.07 0)
 			(effects
 				(font
@@ -5581,7 +5581,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Button"
 			(at 210.82 100.33 0)
 			(effects
 				(font
@@ -5658,7 +5658,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Logic level shifter"
 			(at 190.5 38.1 0)
 			(effects
 				(font
@@ -5820,7 +5820,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k5 Res"
 			(at 134.62 124.46 0)
 			(effects
 				(font
@@ -6096,7 +6096,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "PCB connector"
 			(at 69.85 43.18 0)
 			(effects
 				(font
@@ -6198,7 +6198,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k Res"
 			(at 210.82 88.9 0)
 			(effects
 				(font
@@ -6409,7 +6409,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k Res"
 			(at 210.82 127 0)
 			(effects
 				(font
@@ -6688,7 +6688,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "RK09K1130A5R"
+		(property "Description" "Potentiometer"
 			(at 147.32 96.52 0)
 			(effects
 				(font
@@ -6697,7 +6697,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "PTV09A-4025S-A103-ND"
+		(property "Digikey" "  4809-RK09K1130A5R-ND"
 			(at 147.32 96.52 0)
 			(effects
 				(font
@@ -6769,7 +6769,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Schottky diode"
 			(at 142.24 111.76 0)
 			(effects
 				(font
@@ -6913,7 +6913,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Button"
 			(at 186.69 100.33 0)
 			(effects
 				(font
@@ -7059,7 +7059,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Button"
 			(at 210.82 138.43 0)
 			(effects
 				(font
@@ -7204,7 +7204,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k Res"
 			(at 186.69 88.9 0)
 			(effects
 				(font

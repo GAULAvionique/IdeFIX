@@ -8,19 +8,22 @@ C_SRCS += \
 ../Core/Src/GAUL_drivers/Pulse_pin.c \
 ../Core/Src/GAUL_drivers/RFM22.c \
 ../Core/Src/GAUL_drivers/buzzer.c \
-../Core/Src/GAUL_drivers/i2c_lcd.c 
+../Core/Src/GAUL_drivers/i2c_lcd.c \
+../Core/Src/GAUL_drivers/timer.c 
 
 OBJS += \
 ./Core/Src/GAUL_drivers/Pulse_pin.o \
 ./Core/Src/GAUL_drivers/RFM22.o \
 ./Core/Src/GAUL_drivers/buzzer.o \
-./Core/Src/GAUL_drivers/i2c_lcd.o 
+./Core/Src/GAUL_drivers/i2c_lcd.o \
+./Core/Src/GAUL_drivers/timer.o 
 
 C_DEPS += \
 ./Core/Src/GAUL_drivers/Pulse_pin.d \
 ./Core/Src/GAUL_drivers/RFM22.d \
 ./Core/Src/GAUL_drivers/buzzer.d \
-./Core/Src/GAUL_drivers/i2c_lcd.d 
+./Core/Src/GAUL_drivers/i2c_lcd.d \
+./Core/Src/GAUL_drivers/timer.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -30,7 +33,7 @@ Core/Src/GAUL_drivers/%.o Core/Src/GAUL_drivers/%.su Core/Src/GAUL_drivers/%.cyc
 clean: clean-Core-2f-Src-2f-GAUL_drivers
 
 clean-Core-2f-Src-2f-GAUL_drivers:
-	-$(RM) ./Core/Src/GAUL_drivers/Pulse_pin.cyclo ./Core/Src/GAUL_drivers/Pulse_pin.d ./Core/Src/GAUL_drivers/Pulse_pin.o ./Core/Src/GAUL_drivers/Pulse_pin.su ./Core/Src/GAUL_drivers/RFM22.cyclo ./Core/Src/GAUL_drivers/RFM22.d ./Core/Src/GAUL_drivers/RFM22.o ./Core/Src/GAUL_drivers/RFM22.su ./Core/Src/GAUL_drivers/buzzer.cyclo ./Core/Src/GAUL_drivers/buzzer.d ./Core/Src/GAUL_drivers/buzzer.o ./Core/Src/GAUL_drivers/buzzer.su ./Core/Src/GAUL_drivers/i2c_lcd.cyclo ./Core/Src/GAUL_drivers/i2c_lcd.d ./Core/Src/GAUL_drivers/i2c_lcd.o ./Core/Src/GAUL_drivers/i2c_lcd.su
+	-$(RM) ./Core/Src/GAUL_drivers/Pulse_pin.cyclo ./Core/Src/GAUL_drivers/Pulse_pin.d ./Core/Src/GAUL_drivers/Pulse_pin.o ./Core/Src/GAUL_drivers/Pulse_pin.su ./Core/Src/GAUL_drivers/RFM22.cyclo ./Core/Src/GAUL_drivers/RFM22.d ./Core/Src/GAUL_drivers/RFM22.o ./Core/Src/GAUL_drivers/RFM22.su ./Core/Src/GAUL_drivers/buzzer.cyclo ./Core/Src/GAUL_drivers/buzzer.d ./Core/Src/GAUL_drivers/buzzer.o ./Core/Src/GAUL_drivers/buzzer.su ./Core/Src/GAUL_drivers/i2c_lcd.cyclo ./Core/Src/GAUL_drivers/i2c_lcd.d ./Core/Src/GAUL_drivers/i2c_lcd.o ./Core/Src/GAUL_drivers/i2c_lcd.su ./Core/Src/GAUL_drivers/timer.cyclo ./Core/Src/GAUL_drivers/timer.d ./Core/Src/GAUL_drivers/timer.o ./Core/Src/GAUL_drivers/timer.su
 
 .PHONY: clean-Core-2f-Src-2f-GAUL_drivers
 

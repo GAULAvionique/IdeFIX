@@ -10,18 +10,18 @@
 
 // Static variables to store the buzzer’s timer handle and channel
 static TIM_HandleTypeDef *buzzer_timer = NULL;
+static HAL_TIM_ActiveChannel buzzer_channel = 0;
 static TIM_HandleTypeDef *buzzer_watcher = NULL;
-static uint32_t         buzzer_channel = 0;
-static uint32_t			watcher_channel = 0;
-static uint32_t time;
+static HAL_TIM_ActiveChannel watcher_channel = 0;
 
 
-void buzzer_init(TIM_HandleTypeDef *htim_buz, uint32_t buz_channel, TIM_HandleTypeDef *htim_watch, uint32_t watch_channel)
+
+void buzzer_init(TIM_HandleTypeDef *htim_pwm, HAL_TIM_ActiveChannel channel_pwm, TIM_HandleTypeDef *htim_watch, HAL_TIM_ActiveChannel channel_watch)
 {
-    buzzer_timer = htim_buz;
-    buzzer_channel = buz_channel;
+    buzzer_timer = htim_pwm;
+    buzzer_channel = channel_pwm;
     buzzer_watcher = htim_watch;
-    watcher_channel = watch_channel;
+    watcher_channel = channel_watch;
 
     TIM_OC_InitTypeDef sConfigOC = {0};
 
@@ -32,9 +32,12 @@ void buzzer_init(TIM_HandleTypeDef *htim_buz, uint32_t buz_channel, TIM_HandleTy
 
     HAL_TIM_PWM_ConfigChannel(buzzer_timer, &sConfigOC, buzzer_channel);
     HAL_TIM_PWM_Start(buzzer_timer, buzzer_channel);
+
+    set_oc_callback(htim_watch, channel_watch, &_buzzer_stop);
 }
 
-void buzzer_beep(uint32_t frequency, uint32_t duration_ms)
+
+void buzzer_start(uint32_t frequency, uint32_t duration_ms)
 {
     if (buzzer_timer == NULL) return; // not initialized
 
@@ -64,3 +67,9 @@ void buzzer_beep(uint32_t frequency, uint32_t duration_ms)
 	HAL_TIM_OC_Start_IT(buzzer_watcher, watcher_channel);
 }
 
+
+void _buzzer_stop(int callback_id)
+{
+	HAL_TIM_PWM_Stop(buzzer_timer, buzzer_channel);
+	HAL_TIM_OC_Stop_IT(buzzer_watcher, watcher_channel);
+}

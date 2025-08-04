@@ -9,9 +9,23 @@
 #define INC_GAUL_DRIVERS_PULSE_PIN_H_
 
 #include "stm32f1xx_hal.h"
+#include "GAUL_drivers/timer.h"
 
-void PulsePin_init(TIM_HandleTypeDef *buz_htim, uint32_t buz_channel, TIM_HandleTypeDef *htim2, TIM_HandleTypeDef *htim3, TIM_HandleTypeDef *htim4, uint16_t time);
-void PulsePin(uint8_t pin, TIM_HandleTypeDef *htim);
+#define MAX_PINS 3
+
+typedef struct {
+	int pin_id;
+	GPIO_TypeDef *pin_port;
+	uint16_t pin;
+	TIM_HandleTypeDef *htim;
+	HAL_TIM_ActiveChannel channel;
+} Pulse_Pin_Typedef;
+
+
+Pulse_Pin_Typedef PulsePin_init(GPIO_TypeDef *pin_port, uint16_t pin, TIM_HandleTypeDef *htim, HAL_TIM_ActiveChannel tim_channel);
+void PulsePin(Pulse_Pin_Typedef pin, uint16_t time);
+void _Stop_Pulse(int pin_id);
+Pulse_Pin_Typedef _find_pulse_pin(int pin_id);
 
 
 #endif /* INC_GAUL_DRIVERS_PULSE_PIN_H_ */

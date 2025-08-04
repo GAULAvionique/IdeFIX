@@ -56,6 +56,8 @@ TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim5;
 
+UART_HandleTypeDef huart4;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -70,6 +72,7 @@ static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM5_Init(void);
+static void MX_UART4_Init(void);
 /* USER CODE BEGIN PFP */
 void PUSH_ISR(uint16_t GPIO_pin);
 /* USER CODE END PFP */
@@ -85,20 +88,21 @@ uint8_t print_menu_timer = 0;
 uint8_t rfm22_interrupt_flag = 0;
 uint8_t pushbutton_interrupt_flag = 0;
 uint8_t pushbutton_pushed[4] = {0};
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if (GPIO_Pin == RFM_NIRQ_Pin) rfm22_interrupt_flag = 1;
-	if ((GPIO_Pin == PUSH1_Pin) | (GPIO_Pin == PUSH2_Pin) | (GPIO_Pin == PUSH3_Pin) | (GPIO_Pin == PUSH4_Pin)) PUSH_ISR(GPIO_Pin);
+	if (GPIO_Pin == RFM_IRQ_Pin) rfm22_interrupt_flag = 1;
+	if ((GPIO_Pin == GPIO1_Pin) | (GPIO_Pin == GPIO2_Pin) | (GPIO_Pin == GPIO3_Pin) | (GPIO_Pin == GPIO4_Pin)) PUSH_ISR(GPIO_Pin);
 }
 
 
 void PUSH_ISR(uint16_t GPIO_pin)
 {
 	pushbutton_interrupt_flag = 1;
-	pushbutton_pushed[0] |= (GPIO_pin == PUSH1_Pin);
-	pushbutton_pushed[1] |= (GPIO_pin == PUSH2_Pin);
-	pushbutton_pushed[2] |= (GPIO_pin == PUSH3_Pin);
-	pushbutton_pushed[3] |= (GPIO_pin == PUSH4_Pin);
+	pushbutton_pushed[0] |= (GPIO_pin == GPIO1_Pin);
+	pushbutton_pushed[1] |= (GPIO_pin == GPIO2_Pin);
+	pushbutton_pushed[2] |= (GPIO_pin == GPIO3_Pin);
+	pushbutton_pushed[3] |= (GPIO_pin == GPIO4_Pin);
 
 }
 
@@ -159,47 +163,53 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM5_Init();
+  MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-  PulsePin_init(&htim1, TIM_CHANNEL_1, &htim2, &htim3, &htim4, 50);
+  // init pulsed pins and their respective timers
+  Pulse_Pin_Typedef pin1 = PulsePin_init(GPIOA, GPIO_PIN_10, &htim2, TIM_CHANNEL_1);
+  Pulse_Pin_Typedef pin2 = PulsePin_init(LED2_GPIO_Port, LED2_Pin, &htim3, TIM_CHANNEL_1);
+  Pulse_Pin_Typedef pin3 = PulsePin_init(LED3_GPIO_Port, LED3_Pin, &htim4, TIM_CHANNEL_1);
+
+  // init buzzer and its watch timer
   buzzer_init(&htim1, TIM_CHANNEL_1, &htim5, TIM_CHANNEL_1);
 
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-
+  // init lcd
   I2C_LCD_HandleTypeDef lcd;
   lcd.hi2c = &hi2c1;
   lcd.address = 0x27<<1;
   lcd_init(&lcd);
   lcd_clear(&lcd);
+  print_menu(&lcd, 0, 0, 0, 0);
 
+  //init rfm22
   RFM22 rfm22 = {
 		  .SPIx = &hspi1,
-		  .cs_port = GPIOA,
-		  .cs_pin = GPIO_PIN_4,
-		  .snd_port = GPIOC,
-		  .snd_pin = GPIO_PIN_5,
-		  .nirq_port = GPIOB,
-		  .nirq_pin = GPIO_PIN_10,
-		  .gpio_port_1 = GPIOB,
-		  .gpio_pin_1 = GPIO_PIN_0,
-		  .gpio_port_2 = GPIOB,
-		  .gpio_pin_1 = GPIO_PIN_1,
-		  .gpio_port_3 = GPIOB,
-		  .gpio_pin_1 = GPIO_PIN_2
+		  .cs_port = RFM_CS_GPIO_Port,
+		  .cs_pin = RFM_CS_Pin,
+		  .snd_port = RFM_SDN_GPIO_Port,
+		  .snd_pin = RFM_SDN_Pin,
+		  .nirq_port = RFM_IRQ_GPIO_Port,
+		  .nirq_pin = RFM_IRQ_Pin,
+		  .gpio_port_1 = RFM_GPIO1_GPIO_Port,
+		  .gpio_pin_1 = RFM_GPIO1_Pin,
+		  .gpio_port_2 = RFM_GPIO2_GPIO_Port,
+		  .gpio_pin_2 = RFM_GPIO2_Pin,
+		  .gpio_port_3 = RFM_GPIO3_GPIO_Port,
+		  .gpio_pin_3 = RFM_GPIO3_Pin
   };
 
   RFM22_init(&rfm22, &rfm22_confs);
   RFM22_channel(&rfm22, 10);
-  print_menu(&lcd, 0, 0, 0, 0);
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+
 
   //global vars
   uint8_t packet[8] = {1, 2, 3, 4, 5, 6, 7, 8};
   uint8_t rssi = 0;
   uint8_t ref_rssi = 0;
-  uint8_t buzzer_on = 0;
-  uint32_t buzzer_tick;
   uint32_t freq;
   uint8_t channel = 0;
   float latitude = 0;
@@ -212,21 +222,24 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-/*
+#ifdef TRANSMIT
 	  RFM22_transmit(&rfm22, packet, 8);
 	  uint32_t tick = HAL_GetTick();
-	  while (HAL_GetTick() - tick < 500);
-*/
+	  while (HAL_GetTick() - tick < 1000);
+#endif
 
+#ifdef RECEIVE
 	  RFM22_SPI_read(&rfm22, RH_RF22_REG_07_OPERATING_MODE1, spi_rx, 1);
 	  if (!(spi_rx[0] & RH_RF22_RXON))
 	  {
 		  RFM22_rx_mode(&rfm22);
       }
+#endif
 
 
 	  //handle rfm22 interrupts
 	  if (rfm22_interrupt_flag)
+#ifdef TRANSMIT
 	  {
 		  rfm22_interrupt_flag = 0;
 		  uint8_t interrupts[] = {0, 0};
@@ -235,13 +248,28 @@ int main(void)
 		  //pk sent interrupt
 		  if (interrupts[0] & RH_RF22_IPKSENT)
 		  {
-			  PulsePin(0, &htim2);
+			  PulsePin(pin1, 100);
 		  }
+
+		  //tx FIFO full
+		  if (interrupts[0 & RH_RF22_ITXFFAFULL])
+		  {
+			  RFM22_clr_tx_FIFO(&rfm22);
+		  }
+	  }
+#endif
+
+#ifdef RECEIVE
+	  {
+		  rfm22_interrupt_flag = 0;
+		  uint8_t interrupts[] = {0, 0};
+		  RFM22_SPI_read(&rfm22, RH_RF22_REG_03_INTERRUPT_STATUS1, interrupts, 2);
+
 
 		  //pk received
 		  if (interrupts[0] & RH_RF22_IPKVALID)
 		  {
-			  PulsePin(0, &htim2);
+			  PulsePin(pin1, 100);
 			  uint8_t lenght = RFM22_available(&rfm22);
 
 			  // GPS routine
@@ -253,16 +281,8 @@ int main(void)
 			  // rssi routine
 			  int16_t rssi_dif = rssi - ref_rssi;
 			  freq = 3000 + 200*rssi_dif;
-			  buzzer_on = 1;
-			  buzzer_tick = HAL_GetTick();
-			  buzzer_beep(freq, 200);
+			  buzzer_start(freq, 200);
 			  print_menu(&lcd, channel, rssi, latitude, longitude);
-		  }
-
-		  //tx FIFO full
-		  if (interrupts[0 & RH_RF22_ITXFFAFULL])
-		  {
-			  RFM22_clr_tx_FIFO(&rfm22);
 		  }
 
 		  //rx FIFO full
@@ -270,7 +290,7 @@ int main(void)
 		  {
 			  //read last received
 			  //RFM22_clr_rx_FIFO(&rfm22);
-			  PulsePin(1, &htim3);
+			  PulsePin(pin3, 100);
 		  }
 
 		  //valid preamble
@@ -281,9 +301,10 @@ int main(void)
 		  //inval preamble
 		  if (interrupts[1] & RH_RF22_IPREAINVAL)
 		  {
-			  PulsePin(2, &htim4);
+			  PulsePin(pin2, 100);
 		  }
 	  }
+
 
 	  if (pushbutton_interrupt_flag)
 	  {
@@ -316,6 +337,8 @@ int main(void)
 		  pushbutton_pushed[3] = 0;
 	  }
   }
+#endif
+
   /* USER CODE END 3 */
 }
 
@@ -524,7 +547,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 16000;
+  htim2.Init.Prescaler = 64000;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 65535;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -698,7 +721,7 @@ static void MX_TIM5_Init(void)
 
   /* USER CODE END TIM5_Init 1 */
   htim5.Instance = TIM5;
-  htim5.Init.Prescaler = 16000;
+  htim5.Init.Prescaler = 64000;
   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim5.Init.Period = 65535;
   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -737,6 +760,39 @@ static void MX_TIM5_Init(void)
 }
 
 /**
+  * @brief UART4 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_UART4_Init(void)
+{
+
+  /* USER CODE BEGIN UART4_Init 0 */
+
+  /* USER CODE END UART4_Init 0 */
+
+  /* USER CODE BEGIN UART4_Init 1 */
+
+  /* USER CODE END UART4_Init 1 */
+  huart4.Instance = UART4;
+  huart4.Init.BaudRate = 115200;
+  huart4.Init.WordLength = UART_WORDLENGTH_8B;
+  huart4.Init.StopBits = UART_STOPBITS_1;
+  huart4.Init.Parity = UART_PARITY_NONE;
+  huart4.Init.Mode = UART_MODE_TX_RX;
+  huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart4.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN UART4_Init 2 */
+
+  /* USER CODE END UART4_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -753,58 +809,49 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_10|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin|RFM_SDN_Pin
+                          |RFM_IRQ_Pin|GPIO_PIN_10, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(RFM_SDN_GPIO_Port, RFM_SDN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, RFM_CS_Pin|RFM_GPIO3_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA4 PA10 LED2_Pin LED3_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_10|LED2_Pin|LED3_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, RFM_GPIO2_Pin|RFM_GPIO1_Pin|RFM_GPIO5_Pin|RFM_GPIO4_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin RFM_SDN_Pin
+                           RFM_IRQ_Pin PA10 */
+  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin|RFM_SDN_Pin
+                          |RFM_IRQ_Pin|GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : RFM_SDN_Pin */
-  GPIO_InitStruct.Pin = RFM_SDN_Pin;
+  /*Configure GPIO pins : RFM_CS_Pin RFM_GPIO3_Pin */
+  GPIO_InitStruct.Pin = RFM_CS_Pin|RFM_GPIO3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(RFM_SDN_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : RFM_GPIO1_Pin RFM_GPIO2_Pin RFM_GPIO3_Pin */
-  GPIO_InitStruct.Pin = RFM_GPIO1_Pin|RFM_GPIO2_Pin|RFM_GPIO3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  /*Configure GPIO pins : RFM_GPIO2_Pin RFM_GPIO1_Pin RFM_GPIO5_Pin RFM_GPIO4_Pin */
+  GPIO_InitStruct.Pin = RFM_GPIO2_Pin|RFM_GPIO1_Pin|RFM_GPIO5_Pin|RFM_GPIO4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : RFM_NIRQ_Pin */
-  GPIO_InitStruct.Pin = RFM_NIRQ_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(RFM_NIRQ_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PUSH1_Pin PUSH2_Pin PUSH3_Pin PUSH4_Pin */
-  GPIO_InitStruct.Pin = PUSH1_Pin|PUSH2_Pin|PUSH3_Pin|PUSH4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : MLX_INT_Pin */
-  GPIO_InitStruct.Pin = MLX_INT_Pin;
+  /*Configure GPIO pins : GPIO1_Pin GPIO2_Pin GPIO3_Pin GPIO4_Pin */
+  GPIO_InitStruct.Pin = GPIO1_Pin|GPIO2_Pin|GPIO3_Pin|GPIO4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(MLX_INT_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : MLX_INT_TRIG_Pin */
-  GPIO_InitStruct.Pin = MLX_INT_TRIG_Pin;
+  /*Configure GPIO pins : MLX_INT_TRIG_Pin MLX_INT_Pin */
+  GPIO_InitStruct.Pin = MLX_INT_TRIG_Pin|MLX_INT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(MLX_INT_TRIG_GPIO_Port, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
