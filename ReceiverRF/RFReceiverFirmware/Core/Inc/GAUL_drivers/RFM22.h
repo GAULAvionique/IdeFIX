@@ -398,6 +398,8 @@ void RFM22_channel(RFM22 *dev, uint8_t channel);
 void RFM22_SPI_write(RFM22 *dev, uint8_t addr, uint8_t *tx_buffer, uint8_t size);
 void RFM22_SPI_read(RFM22 *dev, uint8_t addr, uint8_t *rx_buffer, uint8_t size);
 
+float RFM22_get_frequency(RFM22 *dev);
+
 
 // ajouter config mode, config fréquence, read, write, auto-tx
 

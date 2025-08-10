@@ -79,11 +79,6 @@ void PUSH_ISR(uint16_t GPIO_pin);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t is_print_menu = 0;
-uint8_t print_menu_delay = 10;
-uint8_t print_menu_timer = 0;
-// hardware interrupt callback
-
 
 uint8_t rfm22_interrupt_flag = 0;
 uint8_t pushbutton_interrupt_flag = 0;
@@ -106,12 +101,37 @@ void PUSH_ISR(uint16_t GPIO_pin)
 
 }
 
-void print_menu(I2C_LCD_HandleTypeDef *lcd, uint8_t channel, uint8_t rssi, float latitude, float longitude)
+
+void signal_strenght_bar(char *string, int length, float percent)
+{
+	if (percent > 100) percent = 100;
+	int nb_square = percent * length / 100;
+	int nb_dash = length - nb_square;
+
+	for (int i = 0; i < nb_square; i++)
+	{
+		string[i] = '#';
+	}
+	for (int i = nb_square; i < length; i++)
+	{
+		string[i] = '-';
+	}
+}
+
+
+void print_menu(RFM22 *dev, I2C_LCD_HandleTypeDef *lcd, uint8_t channel, uint8_t rssi, uint8_t ref_rssi, float latitude, float longitude)
 {
 	char line[20] = {'-'};
+	uint32_t freq = RFM22_get_frequency(dev);
+	uint16_t MHz = freq /1e6;
+	uint16_t kHz = (freq/1000) % 1000;
+	uint16_t Hz = freq % 1000;
+
+	float signal_strenght = 100*((float)rssi-(float)ref_rssi)/((float)ref_rssi+1) + 50;
+
 	lcd_clear(lcd);
 	lcd_gotoxy(lcd, 0, 0); // ligne 1
-	snprintf(line, 20, "CH:%u     433.000.000", channel);
+	snprintf(line, 21, "CH:%-3u   %3lu.%03lu.%03lu", channel, MHz, kHz, Hz);
 	lcd_puts(lcd, line);
 	lcd_gotoxy(lcd, 0, 1); // ligne 2
 	snprintf(line, 20, "RSSI:%u", rssi);
@@ -120,7 +140,7 @@ void print_menu(I2C_LCD_HandleTypeDef *lcd, uint8_t channel, uint8_t rssi, float
 	strcpy(line, "GPS");
 	lcd_puts(lcd, line);
 	lcd_gotoxy(lcd, 0, 3); // ligne 4
-	strcpy(line, "###-----------------");
+	signal_strenght_bar(line, 20, signal_strenght);
 	lcd_puts(lcd, line);
 
 }
@@ -166,12 +186,12 @@ int main(void)
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
   // init pulsed pins and their respective timers
-  Pulse_Pin_Typedef pin1 = PulsePin_init(GPIOA, GPIO_PIN_10, &htim2, TIM_CHANNEL_1);
+  Pulse_Pin_Typedef pin1 = PulsePin_init(LED1_GPIO_Port, LED1_Pin, &htim2, TIM_CHANNEL_1);
   Pulse_Pin_Typedef pin2 = PulsePin_init(LED2_GPIO_Port, LED2_Pin, &htim3, TIM_CHANNEL_1);
   Pulse_Pin_Typedef pin3 = PulsePin_init(LED3_GPIO_Port, LED3_Pin, &htim4, TIM_CHANNEL_1);
 
   // init buzzer and its watch timer
-  buzzer_init(&htim1, TIM_CHANNEL_1, &htim5, TIM_CHANNEL_1);
+  buzzer_init(&htim1, TIM_CHANNEL_3, &htim5, TIM_CHANNEL_1);
 
   // init lcd
   I2C_LCD_HandleTypeDef lcd;
@@ -179,7 +199,6 @@ int main(void)
   lcd.address = 0x27<<1;
   lcd_init(&lcd);
   lcd_clear(&lcd);
-  print_menu(&lcd, 0, 0, 0, 0);
 
   //init rfm22
   RFM22 rfm22 = {
@@ -199,7 +218,7 @@ int main(void)
   };
 
   RFM22_init(&rfm22, &rfm22_confs);
-  RFM22_channel(&rfm22, 10);
+  uint8_t channel = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -207,11 +226,12 @@ int main(void)
 
 
   //global vars
+  RFM22_channel(&rfm22, channel);
+  print_menu(&rfm22, &lcd, 0, 0, 0, 0, 0);
   uint8_t packet[8] = {1, 2, 3, 4, 5, 6, 7, 8};
   uint8_t rssi = 0;
   uint8_t ref_rssi = 0;
   uint32_t freq;
-  uint8_t channel = 0;
   float latitude = 0;
   float longitude = 0;
   uint8_t spi_rx[1] = {0};
@@ -238,7 +258,7 @@ int main(void)
 
 
 	  //handle rfm22 interrupts
-	  if (rfm22_interrupt_flag)
+	  if (rfm22_interrupt_flag || (!HAL_GPIO_ReadPin(RFM_IRQ_GPIO_Port, RFM_IRQ_Pin)))
 #ifdef TRANSMIT
 	  {
 		  rfm22_interrupt_flag = 0;
@@ -282,7 +302,7 @@ int main(void)
 			  int16_t rssi_dif = rssi - ref_rssi;
 			  freq = 3000 + 200*rssi_dif;
 			  buzzer_start(freq, 200);
-			  print_menu(&lcd, channel, rssi, latitude, longitude);
+			  print_menu(&rfm22, &lcd, channel, rssi, ref_rssi, latitude, longitude);
 		  }
 
 		  //rx FIFO full
@@ -314,13 +334,13 @@ int main(void)
 		  {
 			  channel++;
 			  RFM22_channel(&rfm22, channel);
-			  print_menu(&lcd, channel, rssi, latitude, longitude);
+			  print_menu(&rfm22, &lcd, channel, rssi, ref_rssi, latitude, longitude);
 		  }
 		  if (pushbutton_pushed[1]) // channel down
 		  {
 			  channel--;
 			  RFM22_channel(&rfm22, channel);
-			  print_menu(&lcd, channel, rssi, latitude, longitude);
+			  print_menu(&rfm22, &lcd, channel, rssi, ref_rssi, latitude, longitude);
 		  }
 		  if (pushbutton_pushed[2]) // zero
 		  {
@@ -336,9 +356,8 @@ int main(void)
 		  pushbutton_pushed[2] = 0;
 		  pushbutton_pushed[3] = 0;
 	  }
-  }
 #endif
-
+  }
   /* USER CODE END 3 */
 }
 
@@ -354,12 +373,13 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL16;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -505,7 +525,7 @@ static void MX_TIM1_Init(void)
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
-  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
   {
     Error_Handler();
   }
@@ -804,13 +824,13 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin|RFM_SDN_Pin
-                          |RFM_IRQ_Pin|GPIO_PIN_10, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin|RFM_SDN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, RFM_CS_Pin|RFM_GPIO3_Pin, GPIO_PIN_RESET);
@@ -818,14 +838,18 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, RFM_GPIO2_Pin|RFM_GPIO1_Pin|RFM_GPIO5_Pin|RFM_GPIO4_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin RFM_SDN_Pin
-                           RFM_IRQ_Pin PA10 */
-  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin|RFM_SDN_Pin
-                          |RFM_IRQ_Pin|GPIO_PIN_10;
+  /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin RFM_SDN_Pin */
+  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin|RFM_SDN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : RFM_IRQ_Pin */
+  GPIO_InitStruct.Pin = RFM_IRQ_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(RFM_IRQ_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : RFM_CS_Pin RFM_GPIO3_Pin */
   GPIO_InitStruct.Pin = RFM_CS_Pin|RFM_GPIO3_Pin;
@@ -843,7 +867,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : GPIO1_Pin GPIO2_Pin GPIO3_Pin GPIO4_Pin */
   GPIO_InitStruct.Pin = GPIO1_Pin|GPIO2_Pin|GPIO3_Pin|GPIO4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
@@ -852,6 +876,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

@@ -10,3 +10,4 @@
 ../Core/Src/GAUL_drivers/RFM22.c:158:6:RFM22_channel	16	static
 ../Core/Src/GAUL_drivers/RFM22.c:164:6:RFM22_SPI_write	32	static
 ../Core/Src/GAUL_drivers/RFM22.c:174:6:RFM22_SPI_read	32	static
+../Core/Src/GAUL_drivers/RFM22.c:183:7:RFM22_get_frequency	56	static
