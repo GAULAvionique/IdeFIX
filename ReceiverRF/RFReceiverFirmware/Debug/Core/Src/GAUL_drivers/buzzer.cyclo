@@ -1,3 +1,0 @@
-../Core/Src/GAUL_drivers/buzzer.c:19:6:buzzer_init	1
-../Core/Src/GAUL_drivers/buzzer.c:40:6:buzzer_start	9
-../Core/Src/GAUL_drivers/buzzer.c:71:6:_buzzer_stop	1
