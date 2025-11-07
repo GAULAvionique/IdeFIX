@@ -287,7 +287,6 @@ typedef struct {
   uint32_t cached_registers;
 } MLX90393_MemoryCache;
 
-
 /* I2C Core Methods ----------------------------------------------------------*/
 
 /**
@@ -320,7 +319,8 @@ HAL_StatusTypeDef I2C_MLX90393_Init(I2C_MLX90393_HandleTypeDef *hi2cd);
  */
 HAL_StatusTypeDef I2C_MLX90393_WriteCommand(
   I2C_MLX90393_HandleTypeDef *hi2cd,
-  uint8_t cmd
+  uint8_t *cmd,
+  uint8_t len
 );
 
 /**
