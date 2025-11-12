@@ -1,2 +1,6 @@
+.cache
+.settings/
+
 compile_commands.json
-/Debug
+Debug/
+
