@@ -145,6 +145,9 @@ void print_menu(RFM22 *dev, I2C_LCD_HandleTypeDef *lcd, uint8_t channel, uint8_t
 
 }
 
+
+
+
 /* USER CODE END 0 */
 
 /**
@@ -228,7 +231,9 @@ int main(void)
   //global vars
   RFM22_channel(&rfm22, channel);
   print_menu(&rfm22, &lcd, 0, 0, 0, 0, 0);
-  uint8_t packet[8] = {1, 2, 3, 4, 5, 6, 7, 8};
+  const char* packet_str = "VE2VQW";
+  uint8_t packet[8];
+  memcpy(packet,packet_str, 6);    // copy packet_str to packet without '\0'
   uint8_t rssi = 0;
   uint8_t ref_rssi = 0;
   uint32_t freq;
