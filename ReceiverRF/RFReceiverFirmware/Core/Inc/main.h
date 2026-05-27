@@ -49,8 +49,6 @@ extern "C" {
 
 /* USER CODE END EM */
 
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -100,8 +98,15 @@ void Error_Handler(void);
 #define MLX_INT_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
-#define RECEIVE // TRANSMIT or RECEIVE
+#define RECEIVE // TRANSMIT or RECEIVE				METTRE CETTE LIGNE EN COMMENTAIRE POUR PASSER EN MODE TRANSMIT et inversement pour le mettre en mode RECEIVE
 
+#ifndef RECEIVE
+#define TRANSMIT // TRANSMIT
+#endif //RECEIVE
+
+
+#define I2C_ADRESS_SLAVE1 20      /**< The I2C address of slave 1 */
+#define I2C_ADRESS_MASTER 30      /**< The I2C address of the master */
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
