@@ -16,86 +16,144 @@
   </a>
 </p>
 
-## 🌟 **Main Repo pour l'ODB du GAUL**
+## 🌟 **Projet IdeFIX**
 
-Ce projet met en œuvre un **MCU** associé à divers capteurs et modules pour créer un ordinateur de bord performant, optimisé pour un lancement de fusée de type L4. Ce système embarqué est conçu pour collecter et analyser des données en temps réel, permettant ainsi une évaluation précise des performances de la fusée.
+IdeFIX est une **balise de repérage embarquée** développée par le GAUL afin de faciliter la récupération et le suivi d’équipements après mission. Le système agit comme une plateforme compacte de télémétrie et de localisation capable de transmettre des informations essentielles en temps réel.
 
-## 📦 **Composants Intégrés**
+Le projet est conçu pour être :
 
-L'intégration inclut :
+* Léger et robuste
+* Facilement intégrable dans une charge utile ou une fusée
+* Optimisé pour une faible consommation énergétique
+* Modulable selon les besoins de mission
 
-- **Accéléromètre / Gyroscope**
-  
-  Un capteur de mouvement qui fournit des données sur l'accélération et l'orientation de la fusée.
+L’objectif principal d’IdeFIX est d’assurer un repérage fiable des systèmes embarqués pendant les phases de récupération à courte distance.
 
-- **Altimètre**
-  
-  Un capteur de pression atmosphérique, permettant de calculer l'altitude.
+---
 
-- **Buzzer**
-- 
-  Utilisé pour signaler des événements critiques ou des alertes pendant le déboggage ou le démarrage de l'ordinateur de bord.
+## 📦 **Fonctionnalités Intégrées**
 
-- **Lecteur de carte SD**
-  
-  Module d'emplacement mémoire SD qui permet d'enregistre les données de télémétrie pour une analyse ultérieure.
+Le système se subdivise en deux cartes qui peuvent inclure plusieurs modules matériels et logiciels :
 
-- **Module GPS**
-  
-  Module de localisation qui fournit des données de position pour suivre la trajectoire de la fusée.
+* **Communication Radio**
 
-- **Module Radio externe**
-  
-  Module de communication qui sssure la communication en temps réel avec la station de contrôle au sol.
+  Transmission des données vers une station sol pour le suivi et la récupération.
 
-- **Autres Optionnels**  
-  ...
+* **Microcontrôleur principal**
 
-L’ensemble forme un système de télémétrie complet, idéal pour monitorer les performances et la trajectoire d’une fusée en temps réel. Pour des informations détaillées sur le fonctionnement de chaque composant et de leur rôle, consultez [les explications détaillées](./Documentation/ODB2/Explications.md).
-> Des explications détaillées sont aussi disponibles pour l'ODB1. Elles se trouvent [ici](./Documentation/ODB1/Explications.md).
+  Assure le traitement des données, la gestion des capteurs et les communications.
 
-## 📷 **Images de l'ODB**
+* **Gestion d’alimentation**
 
-Découvrez une galerie illustrant le design et l'implémentation de l'ordinateur de bord :
+  Système optimisé pour maximiser l’autonomie et assurer la stabilité électrique.
 
-[Voir la Showcase](./Documentation/ODB1/Showcase.md)
+* **Indicateurs de statut**
+
+  LEDs, buzzer ou autres systèmes de rétroaction pour le diagnostic et le déboggage.
+
+---
+
+## 🛰 **Architecture du Projet**
+
+Le dépôt contient l’ensemble des éléments nécessaires au développement de la balise :
+
+* Firmware embarqué
+* Drivers matériels
+* Configuration des périphériques
+* Documentation technique
+* Outils de test et validation
+* Scripts utilitaires
+
+L’architecture logicielle vise à simplifier le développement et permettre une maintenance efficace du système.
+
+---
+
+## 📷 **Images du Projet**
+
+Découvrez les différentes itérations et prototypes de la balise de repérage :
+
+[Voir la Showcase](./Documentation/Showcase.md)
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="./Documentation/ODB1/Showcase/ODB1_PCB.png" alt="ODB1" width="45%">
-  <img src="./Documentation/ODB1/Showcase/Rocket_Launch.jpg" alt="Rocket Launch" width="45%">
+  <img src="./Documentation/Showcase/PCB.png" alt="PCB IdeFIX" width="45%">
+  <img src="./Documentation/Showcase/Prototype.jpg" alt="Prototype IdeFIX" width="45%">
 </div>
+
+---
 
 ## 📚 **Documentation**
 
-Toutes les informations sur les composants hardware / logiciel et les drivers sont disponibles ici :
+La documentation complète du projet est disponible dans le dossier `Documentation/`.
 
-### **Ordinateur de bord 1**
-- [Composantes](./Documentation/ODB1/Composantes.md)
-- [Drivers](./Documentation/ODB1/Drivers.md)
+### Documentation matérielle
 
-### **Ordinateur de bord 2**
+* [Composantes](./Documentation/Composantes.md)
+* [Schémas](./Documentation/Schemas.md)
+* [Assemblage](./Documentation/Assemblage.md)
 
-- [Composantes](./Documentation/ODB2/Composantes.md)
-- [Drivers](./Documentation/ODB2/Drivers.md)
+### Documentation logicielle
 
-> [Prise en main des logiciels](./Documentation/Logiciel.md)
+* [Architecture logicielle](./Documentation/Architecture.md)
+* [Drivers](./Documentation/Drivers.md)
+* [Configuration](./Documentation/Configuration.md)
+* [Prise en main](./Documentation/Logiciel.md)
+
+### Développement
+
+* [Guide de contribution](./Documentation/Contribution.md)
+* [Tests et validation](./Documentation/Validation.md)
+
+---
+
+## ⚙ **Compilation et Déploiement**
+
+Le projet est développé autour de l’écosystème STM32.
+
+### Environnement recommandé
+
+* STM32CubeIDE
+* STM32CubeMX
+* GCC ARM Toolchain
+
+### Compilation
+
+```bash
+git clone https://github.com/GAULAvionique/IdeFIX.git
+```
+
+Ouvrir ensuite le projet dans STM32CubeIDE et compiler le firmware selon la configuration cible.
+
+---
 
 ## 🛠 **Roadmap**
 
-Pour les fonctionnalités à venir et les améliorations prévues, veuillez consulter la [roadmap](./Documentation/Roadmap.md).
+Fonctionnalités prévues et améliorations futures :
+
+* Optimisation de la consommation énergétique
+* Intégration LoRa longue portée
+* Système de récupération automatique
+* Interface de télémétrie améliorée
+* Intégration de nouveaux capteurs
+* Outils de visualisation des données
+
+Consultez la [roadmap](./Documentation/Roadmap.md) pour plus de détails.
+
+---
 
 ## 💡 **Liens Utiles**
 
-- Pour voir la première itération de l'ordinateur de bord, consultez le projet [ODB1](https://github.com/GAULAvionique2023-2024/ODB1_Firmware).
-- L'environnement de développement intégré pour STM32 est [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html). Un document est disponible pour permettre une [prise en main](./Documentation/Logiciel.md) initiale pour le projet.
-- [deepbluembedded](https://deepbluembedded.com/stm32-arm-programming-tutorials/) offre des tutoriels sur la programmation STM32.
+* [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html)
+* [Documentation STM32](https://www.st.com/)
+* [Tutoriels STM32 — DeepBlueEmbedded](https://deepbluembedded.com/stm32-arm-programming-tutorials/)
+* [GAUL](https://gaulspace.web.app/home)
+
+---
 
 ## 👥 **Auteurs et Contributeurs**
 
-- [@SamLol12](https://github.com/SamLol12)
-- [@bestrider14](https://github.com/bestrider14)
-- [@mathouqc](https://github.com/mathouqc)
-- [Autres Participants](./Documentation/Participants.md)
+* [@vides119](https://github.com/vides119)
+* [@SamLol12](https://github.com/SamLol12)
+* [Contributeurs GAUL](./Documentation/Participants.md)
 
 ---
 
